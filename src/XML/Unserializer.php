@@ -281,34 +281,34 @@ class XML_Unserializer extends PEAR
      * @access private
      * @var    array
      */
-    var $_knownOptions = array(
-                                XML_UNSERIALIZER_OPTION_COMPLEXTYPE,
-                                XML_UNSERIALIZER_OPTION_ATTRIBUTE_KEY,
-                                XML_UNSERIALIZER_OPTION_ATTRIBUTE_TYPE,
-                                XML_UNSERIALIZER_OPTION_ATTRIBUTE_CLASS,
-                                XML_UNSERIALIZER_OPTION_TAG_AS_CLASSNAME,
-                                XML_UNSERIALIZER_OPTION_DEFAULT_CLASS,
-                                XML_UNSERIALIZER_OPTION_ATTRIBUTES_PARSE,
-                                XML_UNSERIALIZER_OPTION_ATTRIBUTES_ARRAYKEY,
-                                XML_UNSERIALIZER_OPTION_ATTRIBUTES_PREPEND,
-                                XML_UNSERIALIZER_OPTION_CONTENT_KEY,
-                                XML_UNSERIALIZER_OPTION_TAG_MAP,
-                                XML_UNSERIALIZER_OPTION_FORCE_ENUM,
-                                XML_UNSERIALIZER_OPTION_ENCODING_SOURCE,
-                                XML_UNSERIALIZER_OPTION_ENCODING_TARGET,
-                                XML_UNSERIALIZER_OPTION_DECODE_FUNC,
-                                XML_UNSERIALIZER_OPTION_RETURN_RESULT,
-                                XML_UNSERIALIZER_OPTION_WHITESPACE,
-                                XML_UNSERIALIZER_OPTION_IGNORE_KEYS,
-                                XML_UNSERIALIZER_OPTION_GUESS_TYPES
-                              );
+    var $_knownOptions = [
+        XML_UNSERIALIZER_OPTION_COMPLEXTYPE,
+        XML_UNSERIALIZER_OPTION_ATTRIBUTE_KEY,
+        XML_UNSERIALIZER_OPTION_ATTRIBUTE_TYPE,
+        XML_UNSERIALIZER_OPTION_ATTRIBUTE_CLASS,
+        XML_UNSERIALIZER_OPTION_TAG_AS_CLASSNAME,
+        XML_UNSERIALIZER_OPTION_DEFAULT_CLASS,
+        XML_UNSERIALIZER_OPTION_ATTRIBUTES_PARSE,
+        XML_UNSERIALIZER_OPTION_ATTRIBUTES_ARRAYKEY,
+        XML_UNSERIALIZER_OPTION_ATTRIBUTES_PREPEND,
+        XML_UNSERIALIZER_OPTION_CONTENT_KEY,
+        XML_UNSERIALIZER_OPTION_TAG_MAP,
+        XML_UNSERIALIZER_OPTION_FORCE_ENUM,
+        XML_UNSERIALIZER_OPTION_ENCODING_SOURCE,
+        XML_UNSERIALIZER_OPTION_ENCODING_TARGET,
+        XML_UNSERIALIZER_OPTION_DECODE_FUNC,
+        XML_UNSERIALIZER_OPTION_RETURN_RESULT,
+        XML_UNSERIALIZER_OPTION_WHITESPACE,
+        XML_UNSERIALIZER_OPTION_IGNORE_KEYS,
+        XML_UNSERIALIZER_OPTION_GUESS_TYPES,
+    ];
     /**
      * default options for the serialization
      *
      * @access private
      * @var    array
      */
-    var $_defaultOptions = array(
+    var $_defaultOptions = [
         // complex types will be converted to arrays, if no type hint is given
         XML_UNSERIALIZER_OPTION_COMPLEXTYPE => 'array',
 
@@ -341,10 +341,10 @@ class XML_Unserializer extends PEAR
         XML_UNSERIALIZER_OPTION_CONTENT_KEY => '_content',
 
         // use this to map tagnames
-        XML_UNSERIALIZER_OPTION_TAG_MAP => array(),
+        XML_UNSERIALIZER_OPTION_TAG_MAP => [],
 
         // these tags will always be an indexed array
-        XML_UNSERIALIZER_OPTION_FORCE_ENUM => array(),
+        XML_UNSERIALIZER_OPTION_FORCE_ENUM => [],
 
         // specify the encoding character of the document to parse
         XML_UNSERIALIZER_OPTION_ENCODING_SOURCE => null,
@@ -363,11 +363,11 @@ class XML_Unserializer extends PEAR
 
         // List of tags that will automatically be added to the parent,
         // instead of adding a new key
-        XML_UNSERIALIZER_OPTION_IGNORE_KEYS => array(),
+        XML_UNSERIALIZER_OPTION_IGNORE_KEYS => [],
 
         // Whether to use type guessing
-        XML_UNSERIALIZER_OPTION_GUESS_TYPES => false
-    );
+        XML_UNSERIALIZER_OPTION_GUESS_TYPES => false,
+    ];
 
     /**
      * current options for the serialization
@@ -375,7 +375,7 @@ class XML_Unserializer extends PEAR
      * @access public
      * @var    array
      */
-    var $options = array();
+    var $options = [];
 
     /**
      * unserialized data
@@ -399,7 +399,7 @@ class XML_Unserializer extends PEAR
      * @access private
      * @var    array
      */
-    var $_dataStack = array();
+    var $_dataStack = [];
 
     /**
      * stack for all values that are generated
@@ -407,7 +407,7 @@ class XML_Unserializer extends PEAR
      * @access private
      * @var    array
      */
-    var $_valStack = array();
+    var $_valStack = [];
 
     /**
      * current tag depth
@@ -471,8 +471,8 @@ class XML_Unserializer extends PEAR
      * You can use this method if you do not want
      * to set all options in the constructor
      *
-     * @param string $name  name of option
-     * @param mixed  $value value of option
+     * @param string $name name of option
+     * @param mixed $value value of option
      *
      * @return void
      * @access public
@@ -503,9 +503,9 @@ class XML_Unserializer extends PEAR
     /**
      * unserialize data
      *
-     * @param mixed   $data    data to unserialize (string, filename or resource)
-     * @param boolean $isFile  data should be treated as a file
-     * @param array   $options options that will override
+     * @param mixed $data data to unserialize (string, filename or resource)
+     * @param boolean $isFile data should be treated as a file
+     * @param array $options options that will override
      *                         the global options for this call
      *
      * @return boolean $success
@@ -514,7 +514,7 @@ class XML_Unserializer extends PEAR
     function unserialize($data, $isFile = false, $options = null)
     {
         $this->_unserializedData = null;
-        $this->_root             = null;
+        $this->_root = null;
 
         // if options have been specified, use them instead
         // of the previously defined ones
@@ -531,9 +531,9 @@ class XML_Unserializer extends PEAR
             $optionsBak = null;
         }
 
-        $this->_valStack  = array();
-        $this->_dataStack = array();
-        $this->_depth     = 0;
+        $this->_valStack = [];
+        $this->_dataStack = [];
+        $this->_depth = 0;
 
         $this->_createParser();
 
@@ -604,9 +604,9 @@ class XML_Unserializer extends PEAR
     /**
      * Start element handler for XML parser
      *
-     * @param object $parser  XML parser object
+     * @param object $parser XML parser object
      * @param string $element XML element
-     * @param array  $attribs attributes of XML tag
+     * @param array $attribs attributes of XML tag
      *
      * @return void
      * @access private
@@ -641,21 +641,21 @@ class XML_Unserializer extends PEAR
             $element = $this->options[XML_UNSERIALIZER_OPTION_TAG_MAP][$element];
         }
 
-        $val = array(
-                     'name'         => $element,
-                     'value'        => null,
-                     'type'         => $type,
-                     'guessType'    => $guessType,
-                     'childrenKeys' => array(),
-                     'aggregKeys'   => array()
-                    );
+        $val = [
+            'name' => $element,
+            'value' => null,
+            'type' => $type,
+            'guessType' => $guessType,
+            'childrenKeys' => [],
+            'aggregKeys' => [],
+        ];
 
         if ($this->options[XML_UNSERIALIZER_OPTION_ATTRIBUTES_PARSE] == true
             && (count($attribs) > 0)
         ) {
-            $val['children'] = array();
-            $val['type']     = $this->_getComplexType($element);
-            $val['class']    = $element;
+            $val['children'] = [];
+            $val['type'] = $this->_getComplexType($element);
+            $val['class'] = $element;
 
             if ($this->options[XML_UNSERIALIZER_OPTION_GUESS_TYPES] === true) {
                 $attribs = $this->_guessAndSetTypes($attribs);
@@ -663,12 +663,12 @@ class XML_Unserializer extends PEAR
             if ($this->options[XML_UNSERIALIZER_OPTION_ATTRIBUTES_ARRAYKEY] != false
             ) {
                 $val['children'][$this->
-                    options[XML_UNSERIALIZER_OPTION_ATTRIBUTES_ARRAYKEY]] = $attribs;
+                options[XML_UNSERIALIZER_OPTION_ATTRIBUTES_ARRAYKEY]] = $attribs;
             } else {
                 foreach ($attribs as $attrib => $value) {
                     $val['children'][$this->
-                        options[XML_UNSERIALIZER_OPTION_ATTRIBUTES_PREPEND]
-                        . $attrib] = $value;
+                    options[XML_UNSERIALIZER_OPTION_ATTRIBUTES_PREPEND]
+                    . $attrib] = $value;
                 }
             }
         }
@@ -761,7 +761,7 @@ class XML_Unserializer extends PEAR
     /**
      * End element handler for XML parser
      *
-     * @param object $parser  XML parser object
+     * @param object $parser XML parser object
      * @param string $element element
      *
      * @return void
@@ -771,109 +771,109 @@ class XML_Unserializer extends PEAR
     {
         $value = array_pop($this->_valStack);
         switch ($this->options[XML_UNSERIALIZER_OPTION_WHITESPACE]) {
-        case XML_UNSERIALIZER_WHITESPACE_KEEP:
-            $data = $this->_dataStack[$this->_depth];
-            break;
-        case XML_UNSERIALIZER_WHITESPACE_NORMALIZE:
-            $data = trim(preg_replace('/\s\s+/m', ' ',
-                $this->_dataStack[$this->_depth]));
-            break;
-        case XML_UNSERIALIZER_WHITESPACE_TRIM:
-        default:
-            $data = trim($this->_dataStack[$this->_depth]);
-            break;
+            case XML_UNSERIALIZER_WHITESPACE_KEEP:
+                $data = $this->_dataStack[$this->_depth];
+                break;
+            case XML_UNSERIALIZER_WHITESPACE_NORMALIZE:
+                $data = trim(preg_replace('/\s\s+/m', ' ',
+                    $this->_dataStack[$this->_depth]));
+                break;
+            case XML_UNSERIALIZER_WHITESPACE_TRIM:
+            default:
+                $data = trim($this->_dataStack[$this->_depth]);
+                break;
         }
 
         // adjust type of the value
-        switch(strtolower($value['type'])) {
+        switch (strtolower($value['type'])) {
 
-        // unserialize an object
-        case 'object':
-            if (isset($value['class'])) {
-                $classname = $value['class'];
-            } else {
-                $classname = '';
-            }
-            // instantiate the class
-            if ($this->options[XML_UNSERIALIZER_OPTION_TAG_AS_CLASSNAME] === true
-                && class_exists($classname)
-            ) {
-                $value['value'] = new $classname;
-            } else {
-                $value['value'] =
-                    new $this->options[XML_UNSERIALIZER_OPTION_DEFAULT_CLASS];
-            }
-            if (trim($data) !== '') {
-                if ($value['guessType'] === true) {
-                    $data = $this->_guessAndSetType($data);
-                }
-                $value['children'][$this->
-                    options[XML_UNSERIALIZER_OPTION_CONTENT_KEY]] = $data;
-            }
-
-            // set properties
-            foreach ($value['children'] as $prop => $propVal) {
-                // check whether there is a special method to set this property
-                $setMethod = 'set'.$prop;
-                if (method_exists($value['value'], $setMethod)) {
-                    call_user_func(array(&$value['value'], $setMethod), $propVal);
+            // unserialize an object
+            case 'object':
+                if (isset($value['class'])) {
+                    $classname = $value['class'];
                 } else {
-                    $value['value']->$prop = $propVal;
+                    $classname = '';
                 }
-            }
-            //  check for magic function
-            if (method_exists($value['value'], '__wakeup')) {
-                $value['value']->__wakeup();
-            }
-            break;
+                // instantiate the class
+                if ($this->options[XML_UNSERIALIZER_OPTION_TAG_AS_CLASSNAME] === true
+                    && class_exists($classname)
+                ) {
+                    $value['value'] = new $classname;
+                } else {
+                    $value['value'] =
+                        new $this->options[XML_UNSERIALIZER_OPTION_DEFAULT_CLASS];
+                }
+                if (trim($data) !== '') {
+                    if ($value['guessType'] === true) {
+                        $data = $this->_guessAndSetType($data);
+                    }
+                    $value['children'][$this->
+                    options[XML_UNSERIALIZER_OPTION_CONTENT_KEY]] = $data;
+                }
 
-        // unserialize an array
-        case 'array':
-            if (trim($data) !== '') {
+                // set properties
+                foreach ($value['children'] as $prop => $propVal) {
+                    // check whether there is a special method to set this property
+                    $setMethod = 'set' . $prop;
+                    if (method_exists($value['value'], $setMethod)) {
+                        call_user_func([&$value['value'], $setMethod], $propVal);
+                    } else {
+                        $value['value']->$prop = $propVal;
+                    }
+                }
+                //  check for magic function
+                if (method_exists($value['value'], '__wakeup')) {
+                    $value['value']->__wakeup();
+                }
+                break;
+
+            // unserialize an array
+            case 'array':
+                if (trim($data) !== '') {
+                    if ($value['guessType'] === true) {
+                        $data = $this->_guessAndSetType($data);
+                    }
+                    $value['children'][$this->
+                    options[XML_UNSERIALIZER_OPTION_CONTENT_KEY]] = $data;
+                }
+                if (isset($value['children'])) {
+                    $value['value'] = $value['children'];
+                } else {
+                    $value['value'] = [];
+                }
+                break;
+
+            // unserialize a null value
+            case 'null':
+                $data = null;
+                break;
+
+            // unserialize a resource => this is not possible :-(
+            case 'resource':
+                $value['value'] = $data;
+                break;
+
+            // unserialize any scalar value
+            default:
                 if ($value['guessType'] === true) {
                     $data = $this->_guessAndSetType($data);
+                } else {
+                    settype($data, $value['type']);
                 }
-                $value['children'][$this->
-                    options[XML_UNSERIALIZER_OPTION_CONTENT_KEY]] = $data;
-            }
-            if (isset($value['children'])) {
-                $value['value'] = $value['children'];
-            } else {
-                $value['value'] = array();
-            }
-            break;
 
-        // unserialize a null value
-        case 'null':
-            $data = null;
-            break;
-
-        // unserialize a resource => this is not possible :-(
-        case 'resource':
-            $value['value'] = $data;
-            break;
-
-        // unserialize any scalar value
-        default:
-            if ($value['guessType'] === true) {
-                $data = $this->_guessAndSetType($data);
-            } else {
-                settype($data, $value['type']);
-            }
-
-            $value['value'] = $data;
-            break;
+                $value['value'] = $data;
+                break;
         }
         $parent = array_pop($this->_valStack);
         if ($parent === null) {
             $this->_unserializedData = &$value['value'];
-            $this->_root             = &$value['name'];
+            $this->_root = &$value['name'];
             return true;
         } else {
             // parent has to be an array
             if (!isset($parent['children']) || !is_array($parent['children'])) {
-                $parent['children'] = array();
-                if (!in_array($parent['type'], array('array', 'object'))) {
+                $parent['children'] = [];
+                if (!in_array($parent['type'], ['array', 'object'])) {
                     $parent['type'] = $this->_getComplexType($parent['name']);
                     if ($parent['type'] == 'object') {
                         $parent['class'] = $parent['name'];
@@ -893,15 +893,15 @@ class XML_Unserializer extends PEAR
                 // there already has been a tag with this name
                 if (in_array($value['name'], $parent['childrenKeys'])
                     || in_array($value['name'],
-                    $this->options[XML_UNSERIALIZER_OPTION_FORCE_ENUM])
+                        $this->options[XML_UNSERIALIZER_OPTION_FORCE_ENUM])
                 ) {
                     // no aggregate has been created for this tag
                     if (!in_array($value['name'], $parent['aggregKeys'])) {
                         if (isset($parent['children'][$value['name']])) {
                             $parent['children'][$value['name']] =
-                                array($parent['children'][$value['name']]);
+                                [$parent['children'][$value['name']]];
                         } else {
-                            $parent['children'][$value['name']] = array();
+                            $parent['children'][$value['name']] = [];
                         }
                         array_push($parent['aggregKeys'], $value['name']);
                     }
@@ -923,7 +923,7 @@ class XML_Unserializer extends PEAR
      * Handler for character data
      *
      * @param object $parser XML parser object
-     * @param string $cdata  CDATA
+     * @param string $cdata CDATA
      *
      * @return void
      * @access private
@@ -932,7 +932,7 @@ class XML_Unserializer extends PEAR
     {
         if ($this->options[XML_UNSERIALIZER_OPTION_DECODE_FUNC] !== null) {
             $cdata = call_user_func($this->
-                options[XML_UNSERIALIZER_OPTION_DECODE_FUNC], $cdata);
+            options[XML_UNSERIALIZER_OPTION_DECODE_FUNC], $cdata);
         }
         $this->_dataStack[$this->_depth] .= $cdata;
     }
@@ -972,7 +972,7 @@ class XML_Unserializer extends PEAR
             unset($this->_parser);
         }
         $this->_parser = new XML_Parser($this->
-            options[XML_UNSERIALIZER_OPTION_ENCODING_SOURCE],
+        options[XML_UNSERIALIZER_OPTION_ENCODING_SOURCE],
             'event', $this->options[XML_UNSERIALIZER_OPTION_ENCODING_TARGET]);
 
         $this->_parser->folding = false;
@@ -980,4 +980,5 @@ class XML_Unserializer extends PEAR
         return true;
     }
 }
+
 ?>

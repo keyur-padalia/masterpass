@@ -1,5 +1,7 @@
 <?php
 
+namespace Dnetix\MasterPass;
+
 /**
  * Set required configuration for SDK.
  * @package  MasterCardCoreSDK

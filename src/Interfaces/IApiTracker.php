@@ -1,9 +1,14 @@
 <?php
+
+namespace Dnetix\MasterPass\
+Interfaces;
+
 /**
  * @package MasterCardCoreSDK
  * @subpackage Interfaces
  */
- /**
+
+/**
  * Interface to monitor different header tracking information.
  * <p>
  * All API implementations should implement this class to track api call and user
@@ -15,18 +20,18 @@
  * </p>
  *
  */
-	interface IApiTracker
-   	{
-		/** Get tracking info to be used in api tracker header 
-		* @method get tracking info to be used in api tracker header 
-		*/
-        public function getAPITrackingHeader();
+interface IApiTracker
+{
+    /** Get tracking info to be used in api tracker header
+     * @method get tracking info to be used in api tracker header
+     */
+    public function getAPITrackingHeader();
 
-   
-		/** Get user agent info to be used in api tracker header
-		* @method get user agent info to be used in api tracker header
-		*/
-        public function getUserAgentHeader();
-   	}
-	
+
+    /** Get user agent info to be used in api tracker header
+     * @method get user agent info to be used in api tracker header
+     */
+    public function getUserAgentHeader();
+}
+
 ?>

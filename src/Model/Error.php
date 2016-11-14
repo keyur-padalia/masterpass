@@ -1,17 +1,16 @@
 <?php
 
+namespace Dnetix\MasterPass\Model;
 
 
-
-
-/**
- * Error
- *
- * PHP version 5
- *
- * @category Class
- * @package  masterpass-merchant
- */
+    /**
+     * Error
+     *
+     * PHP version 5
+     *
+     * @category Class
+     * @package  masterpass-merchant
+     */
 
 /**
  * Error Class Doc Comment
@@ -20,97 +19,100 @@
  * @description This class contains methods require for error handling.
  * @package     masterpass-merchant
  */
- 
-class Error 
+
+class Error
 {
-    /** 
-      * Array of attributes where the key is the local name, and the value is the original name
-      * @var string[] 
-      */
-    static $attributeMap = array(
+    /**
+     * Array of attributes where the key is the local name, and the value is the original name
+     * @var string[]
+     */
+    static $attributeMap = [
         'Description' => 'Description',
         'ReasonCode' => 'ReasonCode',
         'Recoverable' => 'Recoverable',
         'Source' => 'Source',
         'Details' => 'Details',
-        'ExtensionPoint' => 'ExtensionPoint'
-    );
-  
-    static function attributeMap() {
+        'ExtensionPoint' => 'ExtensionPoint',
+    ];
+
+    static function attributeMap()
+    {
         return self::$attributeMap;
     }
 
     /**
-      * Array of attributes to setter functions (for deserialization of responses)
-      * @var string[]
-      */
-    static $setters = array(
+     * Array of attributes to setter functions (for deserialization of responses)
+     * @var string[]
+     */
+    static $setters = [
         'description' => 'setDescription',
         'reason_code' => 'setReasonCode',
         'recoverable' => 'setRecoverable',
         'source' => 'setSource',
         'details' => 'setDetails',
-        'extension_point' => 'setExtensionPoint'
-    );
-  
-    static function setters() {
+        'extension_point' => 'setExtensionPoint',
+    ];
+
+    static function setters()
+    {
         return self::$setters;
     }
 
     /**
-      * Array of attributes to getter functions (for serialization of requests)
-      * @var string[]
-      */
-    static $getters = array(
+     * Array of attributes to getter functions (for serialization of requests)
+     * @var string[]
+     */
+    static $getters = [
         'description' => 'getDescription',
         'reason_code' => 'getReasonCode',
         'recoverable' => 'getRecoverable',
         'source' => 'getSource',
         'details' => 'getDetails',
-        'extension_point' => 'getExtensionPoint'
-    );
-  
-    static function getters() {
+        'extension_point' => 'getExtensionPoint',
+    ];
+
+    static function getters()
+    {
         return self::$getters;
     }
 
-    
+
     /**
-      * $description the error description.
-      * @var string
-      */
+     * $description the error description.
+     * @var string
+     */
     public $Description;
-    
+
     /**
-      * $reason_code the error reason code.
-      * @var string
-      */
+     * $reason_code the error reason code.
+     * @var string
+     */
     public $ReasonCode;
-    
+
     /**
-      * $recoverable the error recoverable info.
-      * @var bool
-      */
+     * $recoverable the error recoverable info.
+     * @var bool
+     */
     public $Recoverable;
-    
+
     /**
-      * $source the source of error.
-      * @var string
-      */
+     * $source the source of error.
+     * @var string
+     */
     public $Source;
-    
+
     /**
-      * $details the error details.
-      * @var \mastercard_masterpass_merchant\model\Details
-      */
+     * $details the error details.
+     * @var \mastercard_masterpass_merchant\model\Details
+     */
     public $Details;
-    
+
     /**
-      * $extension_point the ExtensionPoint for future enhancement.
-      * @var \mastercard_masterpass_merchant\model\ExtensionPoint
-      */
+     * $extension_point the ExtensionPoint for future enhancement.
+     * @var \mastercard_masterpass_merchant\model\ExtensionPoint
+     */
     public $ExtensionPoint;
-    
+
 
     /**
      * Constructor
@@ -118,7 +120,7 @@ class Error
      */
     public function __construct(array $data = null)
     {
-        
+
         if ($data != null) {
             $this->Description = $data["Description"];
             $this->ReasonCode = $data["ReasonCode"];
@@ -128,7 +130,7 @@ class Error
             $this->ExtensionPoint = $data["ExtensionPoint"];
         }
     }
-    
+
     /**
      * Gets description
      * @return string
@@ -137,7 +139,7 @@ class Error
     {
         return $this->Description;
     }
-  
+
     /**
      * Sets description
      * @param string $description the error description.
@@ -145,11 +147,11 @@ class Error
      */
     public function setDescription($description)
     {
-        
+
         $this->Description = $description;
         return $this;
     }
-    
+
     /**
      * Gets reason_code
      * @return string
@@ -158,7 +160,7 @@ class Error
     {
         return $this->ReasonCode;
     }
-  
+
     /**
      * Sets reason_code
      * @param string $reason_code the error reason code.
@@ -166,11 +168,11 @@ class Error
      */
     public function setReasonCode($reason_code)
     {
-        
+
         $this->ReasonCode = $reason_code;
         return $this;
     }
-    
+
     /**
      * Gets recoverable
      * @return bool
@@ -179,7 +181,7 @@ class Error
     {
         return $this->Recoverable;
     }
-  
+
     /**
      * Sets recoverable
      * @param bool $recoverable the error recoverable info.
@@ -187,11 +189,11 @@ class Error
      */
     public function setRecoverable($recoverable)
     {
-        
+
         $this->Recoverable = $recoverable;
         return $this;
     }
-    
+
     /**
      * Gets source
      * @return string
@@ -200,7 +202,7 @@ class Error
     {
         return $this->Source;
     }
-  
+
     /**
      * Sets source
      * @param string $source the source of error.
@@ -208,11 +210,11 @@ class Error
      */
     public function setSource($source)
     {
-        
+
         $this->Source = $source;
         return $this;
     }
-    
+
     /**
      * Gets details
      * @return \mastercard_masterpass_merchant\model\Details
@@ -221,7 +223,7 @@ class Error
     {
         return $this->Details;
     }
-  
+
     /**
      * Sets details
      * @param \mastercard_masterpass_merchant\model\Details $details the error details.
@@ -229,11 +231,11 @@ class Error
      */
     public function setDetails($details)
     {
-        
+
         $this->Details = $details;
         return $this;
     }
-    
+
     /**
      * Gets extension_point
      * @return \mastercard_masterpass_merchant\model\ExtensionPoint
@@ -242,7 +244,7 @@ class Error
     {
         return $this->ExtensionPoint;
     }
-  
+
     /**
      * Sets extension_point
      * @param \mastercard_masterpass_merchant\model\ExtensionPoint $extension_point the ExtensionPoint for future enhancement.
@@ -250,13 +252,11 @@ class Error
      */
     public function setExtensionPoint($extension_point)
     {
-        
+
         $this->ExtensionPoint = $extension_point;
         return $this;
     }
-    
-    
-    
+
 
 }
 
