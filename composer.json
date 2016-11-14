@@ -1,0 +1,19 @@
+{
+    "name": "dnetix/masterpass",
+    "description": "Masterpass SDK",
+    "type": "library",
+    "require": {
+        "guzzlehttp/guzzle": "^6.2"
+    },
+    "authors": [
+        {
+            "name": "Diego Calle",
+            "email": "dnetix@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Dnetix\\Masterpass\\": "src/"
+        }
+    }
+}
