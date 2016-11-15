@@ -1,19 +1,17 @@
 <?php
 
 namespace Dnetix\MasterPass\Exception;
+use Dnetix\MasterPass\Converters\SDKConverterFactory;
+use Dnetix\MasterPass\Helper\Logger;
+use Dnetix\MasterPass\Interfaces\SDKErrorHandler;
+use Dnetix\MasterPass\Model\Error;
 
 
 /**
  * Error handler to handle different errors coming in Oauth response and wrap those to
  * the Errors object and throws the Errors object as SDKErrorResponseException.
  * User will get the Errors object as a Object.
- * @package  MasterCardCoreSDK
- * @subpackage  Exception
- * @category Class MasterpassErrorHandler
- * @implements SDKErrorHandler
- * @throws Exception
  */
-
 class MasterpassErrorHandler implements SDKErrorHandler
 {
 
@@ -42,7 +40,6 @@ class MasterpassErrorHandler implements SDKErrorHandler
 
     /**
      * wrap up exception and throw custom exception
-     * @param $sdkErrorResponse Response coming from api server converted as error/exception
      */
     public function handleError($sdkErrorResponse)
     {
@@ -86,11 +83,6 @@ class MasterpassErrorHandler implements SDKErrorHandler
 
     /**
      * Return new Errors object with error description, reason code, source.
-     *
-     * @param error description
-     * @param error reasonCode
-     * @param error errSource
-     * @return Error Object
      */
     private function getErrorsObj($description, $reasonCode, $errSource)
     {
@@ -104,5 +96,3 @@ class MasterpassErrorHandler implements SDKErrorHandler
         return $errors;
     }
 }
-
-?>

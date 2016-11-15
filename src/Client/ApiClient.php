@@ -1,28 +1,35 @@
 <?php
 
 namespace Dnetix\MasterPass\Client;
+use Dnetix\MasterPass\Converters\SDKConverterFactory;
+use Dnetix\MasterPass\Exception\SDKBaseException;
+use Dnetix\MasterPass\Exception\SDKConversionException;
+use Dnetix\MasterPass\Exception\SDKValidationException;
+use Dnetix\MasterPass\Helper\Logger;
+use Dnetix\MasterPass\Helper\ServiceRequest;
+use Dnetix\MasterPass\Interceptor\MasterCardAPITrackerInterceptor;
+use Dnetix\MasterPass\Interceptor\MasterCardSDKLoggingInterceptor;
+use Dnetix\MasterPass\Interceptor\MasterCardSignatureInterceptor;
+use Dnetix\MasterPass\MasterCardApiConfig;
+use Dnetix\MasterPass\Model\SDKErrorResponse;
+use Exception;
+use GuzzleHttp\Client;
 
 /**
  * ApiClient is the base class to invoke the API.
- * <p>
  * This class responsible for to convert all request and response according to
  * the content type.
- * </p>
- * @package  MasterCardCoreSDK
- * @subpackage Client
- *
  */
-
 class ApiClient
 {
-    public $logger;
-    public $sdkErrorHandler;
-    private $apiTrackrInterObj;
     const ERR_HANDLER_NOT_FOUND = "SDK Error Handler Not Found";
     const ERR_RESPONSE_CODE = "Error Response Code : ";
-    public $configApi;
 
-    /** MasterCard Config Validate & Logger is instantiated in the constructor. */
+    public $logger;
+    public $sdkErrorHandler;
+    public $configApi;
+    private $apiTrackrInterObj;
+
     public function __construct($apiConfig = null)
     {
         $this->logger = Logger::getLogger(basename(__FILE__));
@@ -43,11 +50,10 @@ class ApiClient
 
     /**
      * Process request and response and call open api through guzzle client.
-     * @param path | the endpoint path.
-     * @param serviceRequest | the service request set by the client.
-     * @param method | the HTTP method type.
-     * @param type | the response type which requires during de-serialization of response.
-     * @return  the response object. For success response returns specific response type object and for error response returns SDKErrorResponse.
+     * @param $resourcePath
+     * @param ServiceRequest $serviceRequest
+     * @param $method
+     * @param $responseType
      */
     public function call($resourcePath, $serviceRequest, $method, $responseType)
     {
@@ -93,7 +99,7 @@ class ApiClient
             // Logging Request
             MasterCardSDKLoggingInterceptor::requestLog($method . " " . $url, $headers, $result);
 
-            $client = new GuzzleHttp\Client();
+            $client = new Client();
             $res = $client->request($method, $url, ['verify' => false, 'headers' => $headers, 'body' => $result]);
             $statusCode = $res->getStatusCode();
 
@@ -114,13 +120,14 @@ class ApiClient
 
         } catch (SDKConversionException $e) {
             $this->logger->error($e->getConverterName());
+            var_dump($res);
+            var_dump($statusCode);
             $sdkErrorResponse = new SDKErrorResponse($res, $statusCode);
             if ($this->sdkErrorHandler != null) {
                 $this->sdkErrorHandler->handleError($sdkErrorResponse);
             } else {
                 throw new SDKBaseException(ApiClient::ERR_HANDLER_NOT_FOUND);
             }
-            return $result_unserialize;
         } catch (Exception $e) {
             $response = $e->getResponse();
             $statusCode = $response->getStatusCode();
@@ -129,7 +136,8 @@ class ApiClient
             // Logging Response
             MasterCardSDKLoggingInterceptor::responseLog($url, $response);
 
-
+            var_dump($response);
+            var_dump($statusCode);
             //	call handler and throw
             $sdkErrorResponse = new SDKErrorResponse($response, $statusCode);
             if ($this->sdkErrorHandler != null) {
@@ -137,7 +145,6 @@ class ApiClient
             } else {
                 throw new SDKBaseException(ApiClient::ERR_HANDLER_NOT_FOUND);
             }
-            return $result_unserialize;
         }
         return $result_unserialize;
     }
@@ -151,5 +158,3 @@ class ApiClient
         $this->apiTrackrInterObj = new MasterCardAPITrackerInterceptor($apiTracker);
     }
 }
-
-?>

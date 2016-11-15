@@ -1,15 +1,9 @@
 <?php
 
 namespace Dnetix\MasterPass\Services;
-    /**
-     * @package  MasterCardCoreSDK
-     * @subpackage  Services
-     */
-
 
 /**
  * Invokes AccessTokenApi.
- *
  */
 class AccessTokenApi
 {

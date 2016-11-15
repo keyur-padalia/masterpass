@@ -1,6 +1,9 @@
 <?php
 
 namespace Dnetix\MasterPass\Interceptor;
+use Dnetix\MasterPass\Client\ApiTracker;
+use Dnetix\MasterPass\Exception\SDKValidationException;
+use Dnetix\MasterPass\Helper\Logger;
 
 /**
  * Interceptor for to set SDK tracking information in each request header.
@@ -57,7 +60,7 @@ class MasterCardAPITrackerInterceptor
         $apiTrackerHeader = '';
         $cliT = $this->apiTrackerService;
         $clientTracker = $cliT->getAPITrackingHeader();
-        $trackingHeadrValue .= ApiTracker::getAPITrackingHeader();
+        $trackingHeadrValue .= (new ApiTracker())->getAPITrackingHeader();
 
         if (empty($clientTracker) || empty($trackingHeadrValue)) {
             throw new SDKValidationException(MasterCardAPITrackerInterceptor::ERR_MSG_NULL_HEADR);
@@ -71,5 +74,3 @@ class MasterCardAPITrackerInterceptor
     }
 
 }
-
-?>

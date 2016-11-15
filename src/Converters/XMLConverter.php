@@ -1,12 +1,20 @@
 <?php
 
+
 namespace Dnetix\MasterPass\Converters;
+
+require_once __DIR__ . '/../../lib/XML/Serializer.php';
+require_once __DIR__ . '/../../lib/XML/Unserializer.php';
+
+use Dnetix\MasterPass\Exception\SDKConversionException;
+use Dnetix\MasterPass\Interfaces\SDKConverter;
+use DOMDocument;
+use DOMXPath;
+use Exception;
+use XML_Serializer;
 
 /**
  * XMLConverter  - XML request and response converter
- * @package MasterCardCoreSDK
- * @subpackage Converters
- * @implements SDKConverter
  */
 class XMLConverter implements SDKConverter
 {
@@ -43,16 +51,11 @@ class XMLConverter implements SDKConverter
 
     public function __construct()
     {
-
     }
 
     /**
      * Convert xml request body to string.
-     * @param Request Object
-     * @return Serialized XML
-     * @throws SDKConversionException    If an exception occurred during request conversion.
      */
-
     public function requestBodyConverter($objRequest)
     {
         $tagMapArray = [];

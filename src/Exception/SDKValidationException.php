@@ -19,8 +19,6 @@ class SDKValidationException extends SDKBaseException
 
     /**
      * @method Custom Exception SDKValidationException
-     *
-     * @param errorMessage
      */
     public function __construct($errorMessage)
     {

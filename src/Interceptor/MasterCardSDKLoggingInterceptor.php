@@ -1,14 +1,12 @@
 <?php
 
 namespace Dnetix\MasterPass\Interceptor;
+use Dnetix\MasterPass\Helper\Logger;
+use DOMDocument;
 
 /**
  * Interceptor for to log the information about each request and response calls.
- * @package  MasterCardCoreSDK
- * @subpackage  Interceptor
- * @category Class MasterCardSDKLoggingInterceptor
  **/
-
 class MasterCardSDKLoggingInterceptor
 {
 
@@ -22,11 +20,8 @@ class MasterCardSDKLoggingInterceptor
 
     /**
      * To generate request log string and print request log
-     * @param $url Api url
-     * @param $heeaders Request Header Parameters
-     * @param $result Request Body as result from converter
      **/
-    public function requestLog($url, $headers, $result)
+    public static function requestLog($url, $headers, $result)
     {
         $headerString = '';
         $requestString = '';
@@ -38,16 +33,13 @@ class MasterCardSDKLoggingInterceptor
         if ($result != '') {
             $requestString .= $result;
         }
-        $this->logger->debug($requestString);
+        Logger::getLogger()->debug($requestString);
     }
 
     /**
      * To generate response log string and print response log
-     * @param $url Api url
-     * @param $res Response from http client
      **/
-
-    public function responseLog($url, $res)
+    public static function responseLog($url, $res)
     {
         $responseString = '';
         $statusCode = '';
@@ -92,11 +84,9 @@ class MasterCardSDKLoggingInterceptor
 
         $responseString .= "\r\n" . MasterCardSDKLoggingInterceptor::RESPONSE_BODY . " " . $strXmlRes;
 
-        $this->logger->debug($responseString);
+        Logger::getLogger()->debug($responseString);
         $statusCode = $res->getStatusCode();
-        $this->logger->info(MasterCardSDKLoggingInterceptor::RESPONSE_STATUS . $statusCode . " ;" . MasterCardSDKLoggingInterceptor::RESPONSE_REASON . " " . $res->getReasonPhrase());
+        Logger::getLogger()->info(MasterCardSDKLoggingInterceptor::RESPONSE_STATUS . $statusCode . " ;" . MasterCardSDKLoggingInterceptor::RESPONSE_REASON . " " . $res->getReasonPhrase());
     }
 
 }
-
-?>

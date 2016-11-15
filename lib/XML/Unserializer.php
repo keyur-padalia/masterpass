@@ -1,5 +1,4 @@
 <?PHP
-/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /**
  * XML_Unserializer
@@ -273,7 +272,7 @@ define('XML_UNSERIALIZER_ERROR_NO_UNSERIALIZATION', 151);
  * @link      http://pear.php.net/package/XML_Serializer
  * @see       XML_Serializer
  */
-class XML_Unserializer extends PEAR
+class XML_Unserializer extends \PEAR
 {
     /**
      * list of all available options

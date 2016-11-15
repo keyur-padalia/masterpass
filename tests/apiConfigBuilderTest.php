@@ -1,14 +1,6 @@
 <?php
 
-
-include_once '../MasterCardCoreSDK/MasterCardApiConfig.php';
-
-include_once "../MasterCardCoreSDK/model/RequestTokenResponse.php";
-include_once "../MasterCardCoreSDK/Services/RequestTokenApi.php";
-
-include_once "../guzzle.phar";
-include_once "../logger/Logger.php";
-Logger::configure("../config.xml");
+//Logger::configure("../config.xml");
 
 
 class apiConfigBuilderTest extends PHPUnit_Framework_TestCase

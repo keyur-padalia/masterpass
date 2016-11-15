@@ -1,14 +1,14 @@
 <?php
 
 namespace Dnetix\MasterPass\Converters;
+use Dnetix\MasterPass\Exception\SDKConversionException;
+use Dnetix\MasterPass\Interfaces\SDKConverter;
+use Exception;
+use ReflectionClass;
 
 /**
  * EncodedURLConverter - To convert response from request token api & parse it & return
- * @category Class EncodedURLConverter
- * @package  MasterCardCoreSDK
- * @subpackage  Converters
  */
-
 class EncodedURLConverter implements SDKConverter
 {
 
@@ -50,10 +50,6 @@ class EncodedURLConverter implements SDKConverter
 
     /**
      * Method used to parse the connection response and return a array of the data
-     * @param  the response body of received response.
-     * @param  the response type to convert received response to specific response type.
-     * @return Array with all response parameters
-     * @throws SDKConversionException
      */
     public function responseBodyConverter($responseString, $responseType)
     {
@@ -90,5 +86,3 @@ class EncodedURLConverter implements SDKConverter
     }
 
 }
-
-?>

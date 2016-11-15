@@ -2,6 +2,8 @@
 
 namespace Dnetix\MasterPass;
 
+use Dnetix\MasterPass\Exception\SDKValidationException;
+
 /**
  * Set required configuration for SDK.
  * @package  MasterCardCoreSDK
@@ -13,101 +15,76 @@ class MasterCardApiConfig
     public static $sandbox = true;
     public static $additionalProperties = [];
     public static $sandboxBuilder;
+
+    /**
+     * @var ApiConfigBuilder
+     */
     public static $productionBuilder;
     const PRODUCTION = "PRODUCTION";
     const SANDBOX = "SANDBOX";
 
     const SANDBOX_URL = "https://sandbox.api.mastercard.com";
     const PROD_URL = "https://api.mastercard.com";
+
     public static $configs = [];
     public static $builders = [];
 
-
-    /**
-     * setting Private key
-     *
-     *
-     * @param privateKey
-     */
     public static function setPrivateKey($privateKey)
     {
-        MasterCardApiConfig::$privateKey = $privateKey;
+        self::$privateKey = $privateKey;
     }
 
-    /**
-     * getting client id
-     *
-     *
-     * @return
-     */
     public static function getConsumerKey()
     {
-        return MasterCardApiConfig::$consumerKey;
+        return self::$consumerKey;
     }
 
-    /**
-     * setting clientID
-     *
-     *
-     * @param clientId
-     */
     public static function setConsumerKey($consumerKey)
     {
-        MasterCardApiConfig::$consumerKey = $consumerKey;
+        self::$consumerKey = $consumerKey;
     }
 
     /**
      * checking SendBox Checked or Not
-     *
-     * @return
      */
-
     public static function isSandBox()
     {
-        return MasterCardApiConfig::$sandbox;
+        return self::$sandbox;
     }
 
     public static function hostUrl()
     {
-        if (MasterCardApiConfig::$sandbox) {
-            return MasterCardApiConfig::SANDBOX_URL;
+        if (self::$sandbox) {
+            return self::SANDBOX_URL;
         } else {
-            return MasterCardApiConfig::PROD_URL;
+            return self::PROD_URL;
         }
     }
 
-
     /**
-     * setting SendBox status
-     *
-     *
+     * Setting SendBox status
      * @param sandbox
      */
     public static function setSandBox($sandbox)
     {
-        MasterCardApiConfig::$sandbox = $sandbox;
+        self::$sandbox = $sandbox;
     }
 
     /**
      * Get Additional Properties
-     *
-     * @return
      */
-
     public function getAdditionalProperties()
     {
-        return MasterCardApiConfig::$additionalProperties;
+        return self::$additionalProperties;
     }
 
     /**
      * Set AdditionalProperties
-     *
      * @param additionalProperties
      */
-
     public function setAdditionalProperties($dataArray)
     {
-        MasterCardApiConfig::$additionalProperties = $dataArray;
+        self::$additionalProperties = $dataArray;
     }
 
     public static function validateConfig($config)
@@ -121,42 +98,32 @@ class MasterCardApiConfig
         }
     }
 
-
-// ==============  Multiconfig Changes ======================
-
-
     /**
      * Register the apiConfig object.
-     *
-     * @param apiconfig    the apiConfig object.
      */
     public static function registerConfig(ApiConfig $apiConfig)
     {
-
         $envNm = $apiConfig->getEnvName();
-        MasterCardApiConfig::$configs[$envNm] = $apiConfig;
-
+        self::$configs[$envNm] = $apiConfig;
     }
-
 
     /**
      * Returns the ApiConfig object for Sandbox/Production, based on user choice.
-     * @return        the ApiConfig object.
      */
     public static function getConfig($name = null)
     {
         if (!empty($name)) {
-            $apiConfig = MasterCardApiConfig::$configs[$name];
+            $apiConfig = self::$configs[$name];
             return $apiConfig;
         } else {
-            if (MasterCardApiConfig::$sandbox) {
-                MasterCardApiConfig::$sandboxBuilder->privateKey = MasterCardApiConfig::$privateKey;
-                MasterCardApiConfig::$sandboxBuilder->consumerKey = MasterCardApiConfig::$consumerKey;
-                return MasterCardApiConfig::$sandboxBuilder->build();
+            if (self::$sandbox) {
+                self::$sandboxBuilder->privateKey = self::$privateKey;
+                self::$sandboxBuilder->consumerKey = self::$consumerKey;
+                return self::$sandboxBuilder->build();
             } else {
-                MasterCardApiConfig::$productionBuilder->setPrivateKey(MasterCardApiConfig::$privateKey);
-                MasterCardApiConfig::$productionBuilder->setConsumerKey(MasterCardApiConfig::$consumerKey);
-                return MasterCardApiConfig::$productionBuilder->build();
+                self::$productionBuilder->setPrivateKey(self::$privateKey);
+                self::$productionBuilder->setConsumerKey(self::$consumerKey);
+                return self::$productionBuilder->build();
             }
         }
     }
@@ -174,6 +141,3 @@ MasterCardApiConfig::$builders = [
     MasterCardApiConfig::SANDBOX => MasterCardApiConfig::$sandboxBuilder,
     MasterCardApiConfig::PRODUCTION => MasterCardApiConfig::$productionBuilder,
 ];
-
-
-?>

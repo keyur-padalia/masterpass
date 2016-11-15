@@ -1,5 +1,4 @@
 <?PHP
-/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /**
  * XML_Serializer
@@ -425,7 +424,7 @@ define('XML_SERIALIZER_ENTITIES_HTML', XML_UTIL_ENTITIES_HTML);
  * @see       XML_Unserializer
  * @todo      replace extending PEAR class with instead using a PEAR_Error object
  */
-class XML_Serializer extends PEAR
+class XML_Serializer extends \PEAR
 {
     /**
      * List of all available options
@@ -1252,5 +1251,3 @@ class XML_Serializer extends PEAR
         return $tag;
     }
 }
-
-?>
