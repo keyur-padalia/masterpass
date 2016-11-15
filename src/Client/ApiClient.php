@@ -120,8 +120,6 @@ class ApiClient
 
         } catch (SDKConversionException $e) {
             $this->logger->error($e->getConverterName());
-            var_dump($res);
-            var_dump($statusCode);
             $sdkErrorResponse = new SDKErrorResponse($res, $statusCode);
             if ($this->sdkErrorHandler != null) {
                 $this->sdkErrorHandler->handleError($sdkErrorResponse);
@@ -133,12 +131,8 @@ class ApiClient
             $statusCode = $response->getStatusCode();
             $this->logger->info(ApiClient::ERR_RESPONSE_CODE . $statusCode);
 
-            // Logging Response
             MasterCardSDKLoggingInterceptor::responseLog($url, $response);
 
-            var_dump($response);
-            var_dump($statusCode);
-            //	call handler and throw
             $sdkErrorResponse = new SDKErrorResponse($response, $statusCode);
             if ($this->sdkErrorHandler != null) {
                 $this->sdkErrorHandler->handleError($sdkErrorResponse);

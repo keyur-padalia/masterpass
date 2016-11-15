@@ -5,6 +5,7 @@ use Dnetix\MasterPass\Converters\SDKConverterFactory;
 use Dnetix\MasterPass\Helper\Logger;
 use Dnetix\MasterPass\Interfaces\SDKErrorHandler;
 use Dnetix\MasterPass\Model\Error;
+use Dnetix\MasterPass\Model\Errors;
 
 
 /**
