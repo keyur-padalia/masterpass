@@ -3,20 +3,16 @@
 namespace Dnetix\MasterPass\Model;
 
 /**
- * ExtensionPoint Class Doc Comment
- *
- * @category    Class
- * @description This class contains methods require to set additional details.
- * @package     masterpass-merchant
+ * This class return the response for DSRP during merchant initialization service.
  */
-class ExtensionPoint
+class MerchantInitializationResponseExtension
 {
     /**
      * Array of attributes where the key is the local name, and the value is the original name
      * @var string[]
      */
     static $attributeMap = [
-        'any' => 'any',
+        'UnpredictableNumber' => 'UnpredictableNumber',
     ];
 
     static function attributeMap()
@@ -29,7 +25,7 @@ class ExtensionPoint
      * @var string[]
      */
     static $setters = [
-        'any' => 'setAny',
+        'unpredictable_number' => 'setUnpredictableNumber',
     ];
 
     static function setters()
@@ -42,7 +38,7 @@ class ExtensionPoint
      * @var string[]
      */
     static $getters = [
-        'any' => 'getAny',
+        'unpredictable_number' => 'getUnpredictableNumber',
     ];
 
     static function getters()
@@ -50,11 +46,13 @@ class ExtensionPoint
         return self::$getters;
     }
 
+
     /**
-     * $any
-     * @var object
+     * $unpredictable_number the unpredictable number.
+     * @var string
      */
-    public $any;
+    public $UnpredictableNumber;
+
 
     /**
      * Constructor
@@ -64,28 +62,27 @@ class ExtensionPoint
     {
 
         if ($data != null) {
-            $this->any = $data["any"];
+            $this->UnpredictableNumber = isset($data["UnpredictableNumber"]) ? $data["UnpredictableNumber"] : "";
         }
     }
 
     /**
-     * Gets any
-     * @return object
+     * Gets unpredictable_number
+     * @return string
      */
-    public function getAny()
+    public function getUnpredictableNumber()
     {
-        return $this->any;
+        return $this->UnpredictableNumber;
     }
 
     /**
-     * Sets any
-     * @param object $any
+     * Sets unpredictable_number
+     * @param string $unpredictable_number the unpredictable number.
      * @return $this
      */
-    public function setAny($any)
+    public function setUnpredictableNumber($unpredictable_number)
     {
-
-        $this->any = $any;
+        $this->UnpredictableNumber = $unpredictable_number;
         return $this;
     }
 

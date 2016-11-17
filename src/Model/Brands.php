@@ -3,20 +3,16 @@
 namespace Dnetix\MasterPass\Model;
 
 /**
- * ExtensionPoint Class Doc Comment
- *
- * @category    Class
- * @description This class contains methods require to set additional details.
- * @package     masterpass-merchant
+ * Brands : This class contains methods regarding brands information.
  */
-class ExtensionPoint
+class Brands
 {
     /**
      * Array of attributes where the key is the local name, and the value is the original name
      * @var string[]
      */
     static $attributeMap = [
-        'any' => 'any',
+        'BrandId' => 'BrandId',
     ];
 
     static function attributeMap()
@@ -29,7 +25,7 @@ class ExtensionPoint
      * @var string[]
      */
     static $setters = [
-        'any' => 'setAny',
+        'brand_id' => 'setBrandId',
     ];
 
     static function setters()
@@ -42,7 +38,7 @@ class ExtensionPoint
      * @var string[]
      */
     static $getters = [
-        'any' => 'getAny',
+        'brand_id' => 'getBrandId',
     ];
 
     static function getters()
@@ -51,10 +47,11 @@ class ExtensionPoint
     }
 
     /**
-     * $any
-     * @var object
+     * $brand_id the brand identification detail.
+     * @var string
      */
-    public $any;
+    public $BrandId;
+
 
     /**
      * Constructor
@@ -62,30 +59,29 @@ class ExtensionPoint
      */
     public function __construct(array $data = null)
     {
-
         if ($data != null) {
-            $this->any = $data["any"];
+            $this->BrandId = isset($data["BrandId"]) ? $data["BrandId"] : "";
         }
     }
 
     /**
-     * Gets any
-     * @return object
+     * Gets brand_id
+     * @return string
      */
-    public function getAny()
+    public function getBrandId()
     {
-        return $this->any;
+        return $this->BrandId;
     }
 
     /**
-     * Sets any
-     * @param object $any
+     * Sets brand_id
+     * @param string $brand_id the brand identification detail.
      * @return $this
      */
-    public function setAny($any)
+    public function setBrandId($brand_id)
     {
 
-        $this->any = $any;
+        $this->BrandId = $brand_id;
         return $this;
     }
 

@@ -3,20 +3,16 @@
 namespace Dnetix\MasterPass\Model;
 
 /**
- * ExtensionPoint Class Doc Comment
- *
- * @category    Class
- * @description This class contains methods require to set additional details.
- * @package     masterpass-merchant
+ * This class contains methods regarding issuers information.
  */
-class ExtensionPoint
+class Issuers
 {
     /**
      * Array of attributes where the key is the local name, and the value is the original name
      * @var string[]
      */
     static $attributeMap = [
-        'any' => 'any',
+        'Issuer' => 'Issuer',
     ];
 
     static function attributeMap()
@@ -29,7 +25,7 @@ class ExtensionPoint
      * @var string[]
      */
     static $setters = [
-        'any' => 'setAny',
+        'issuer' => 'setIssuer',
     ];
 
     static function setters()
@@ -42,7 +38,7 @@ class ExtensionPoint
      * @var string[]
      */
     static $getters = [
-        'any' => 'getAny',
+        'issuer' => 'getIssuer',
     ];
 
     static function getters()
@@ -51,10 +47,10 @@ class ExtensionPoint
     }
 
     /**
-     * $any
-     * @var object
+     * $issuer the issuer detail.
+     * @var string
      */
-    public $any;
+    public $Issuer;
 
     /**
      * Constructor
@@ -62,30 +58,28 @@ class ExtensionPoint
      */
     public function __construct(array $data = null)
     {
-
         if ($data != null) {
-            $this->any = $data["any"];
+            $this->Issuer = isset($data["Issuer"]) ? $data["Issuer"] : "";
         }
     }
 
     /**
-     * Gets any
-     * @return object
+     * Gets issuer
+     * @return string
      */
-    public function getAny()
+    public function getIssuer()
     {
-        return $this->any;
+        return $this->Issuer;
     }
 
     /**
-     * Sets any
-     * @param object $any
+     * Sets issuer
+     * @param string $issuer the issuer detail.
      * @return $this
      */
-    public function setAny($any)
+    public function setIssuer($issuer)
     {
-
-        $this->any = $any;
+        $this->Issuer = $issuer;
         return $this;
     }
 

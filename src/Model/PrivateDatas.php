@@ -3,20 +3,16 @@
 namespace Dnetix\MasterPass\Model;
 
 /**
- * ExtensionPoint Class Doc Comment
- *
- * @category    Class
- * @description This class contains methods require to set additional details.
- * @package     masterpass-merchant
+ * This class contains methods require to set private data details.
  */
-class ExtensionPoint
+class PrivateDatas
 {
     /**
      * Array of attributes where the key is the local name, and the value is the original name
      * @var string[]
      */
     static $attributeMap = [
-        'any' => 'any',
+        'PrivateData' => 'PrivateData',
     ];
 
     static function attributeMap()
@@ -29,7 +25,7 @@ class ExtensionPoint
      * @var string[]
      */
     static $setters = [
-        'any' => 'setAny',
+        'private_data' => 'setPrivateData',
     ];
 
     static function setters()
@@ -42,7 +38,7 @@ class ExtensionPoint
      * @var string[]
      */
     static $getters = [
-        'any' => 'getAny',
+        'private_data' => 'getPrivateData',
     ];
 
     static function getters()
@@ -51,10 +47,11 @@ class ExtensionPoint
     }
 
     /**
-     * $any
-     * @var object
+     * $private_data the private data.
+     * @var PrivateData
      */
-    public $any;
+    public $PrivateData;
+
 
     /**
      * Constructor
@@ -62,30 +59,28 @@ class ExtensionPoint
      */
     public function __construct(array $data = null)
     {
-
         if ($data != null) {
-            $this->any = $data["any"];
+            $this->PrivateData = isset($data["PrivateData"]) ? $data["PrivateData"] : "";
         }
     }
 
     /**
-     * Gets any
-     * @return object
+     * Gets private_data
+     * @return PrivateData
      */
-    public function getAny()
+    public function getPrivateData()
     {
-        return $this->any;
+        return $this->PrivateData;
     }
 
     /**
-     * Sets any
-     * @param object $any
+     * Sets private_data
+     * @param PrivateData $private_data the private data.
      * @return $this
      */
-    public function setAny($any)
+    public function setPrivateData($private_data)
     {
-
-        $this->any = $any;
+        $this->PrivateData = $private_data;
         return $this;
     }
 

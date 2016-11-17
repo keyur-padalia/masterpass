@@ -3,20 +3,16 @@
 namespace Dnetix\MasterPass\Model;
 
 /**
- * ExtensionPoint Class Doc Comment
- *
- * @category    Class
- * @description This class contains methods require to set additional details.
- * @package     masterpass-merchant
+ * This class contains methods regarding installment options.
  */
-class ExtensionPoint
+class InstallmentOptions
 {
     /**
      * Array of attributes where the key is the local name, and the value is the original name
      * @var string[]
      */
     static $attributeMap = [
-        'any' => 'any',
+        'InstallmentOption' => 'InstallmentOption',
     ];
 
     static function attributeMap()
@@ -29,7 +25,7 @@ class ExtensionPoint
      * @var string[]
      */
     static $setters = [
-        'any' => 'setAny',
+        'installment_option' => 'setInstallmentOption',
     ];
 
     static function setters()
@@ -42,7 +38,7 @@ class ExtensionPoint
      * @var string[]
      */
     static $getters = [
-        'any' => 'getAny',
+        'installment_option' => 'getInstallmentOption',
     ];
 
     static function getters()
@@ -50,11 +46,13 @@ class ExtensionPoint
         return self::$getters;
     }
 
+
     /**
-     * $any
-     * @var object
+     * $installment_option the installment option.
+     * @var InstallmentOption
      */
-    public $any;
+    public $InstallmentOption;
+
 
     /**
      * Constructor
@@ -62,30 +60,28 @@ class ExtensionPoint
      */
     public function __construct(array $data = null)
     {
-
         if ($data != null) {
-            $this->any = $data["any"];
+            $this->InstallmentOption = isset($data["InstallmentOption"]) ? $data["InstallmentOption"] : "";
         }
     }
 
     /**
-     * Gets any
-     * @return object
+     * Gets installment_option
+     * @return InstallmentOption
      */
-    public function getAny()
+    public function getInstallmentOption()
     {
-        return $this->any;
+        return $this->InstallmentOption;
     }
 
     /**
-     * Sets any
-     * @param object $any
+     * Sets installment_option
+     * @param InstallmentOption $installment_option the installment option.
      * @return $this
      */
-    public function setAny($any)
+    public function setInstallmentOption($installment_option)
     {
-
-        $this->any = $any;
+        $this->InstallmentOption = $installment_option;
         return $this;
     }
 
