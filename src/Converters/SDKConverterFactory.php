@@ -6,9 +6,6 @@ use Dnetix\MasterPass\Exception\SDKConversionException;
 
 class SDKConverterFactory
 {
-    private $xml;
-    private $urlEncoded;
-    private $json;
 
     /** @const XML | Check to return XML converter object * */
     const XML = "XML";
@@ -30,12 +27,11 @@ class SDKConverterFactory
     {
         switch ($format) {
             case SDKConverterFactory::XML:
-                return $xml = new XMLConverter();
+                return new XMLConverter();
             case SDKConverterFactory::URLENCODED:
-                return $urlEncoded = new EncodedURLConverter();
+                return new EncodedURLConverter();
             case SDKConverterFactory::JSON:
-                // TODO: What should this do
-                return $json;
+                return new JSONConverter();
             default:
                 throw new SDKConversionException("Converter not found for the format " . $format, "Converter not found for $format format");
         }

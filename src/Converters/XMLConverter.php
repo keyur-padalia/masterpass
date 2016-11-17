@@ -8,8 +8,6 @@ require_once __DIR__ . '/../../lib/XML/Unserializer.php';
 
 use Dnetix\MasterPass\Exception\SDKConversionException;
 use Dnetix\MasterPass\Interfaces\SDKConverter;
-use DOMDocument;
-use DOMXPath;
 use Exception;
 use XML_Serializer;
 
@@ -61,6 +59,7 @@ class XMLConverter implements SDKConverter
         $tagMapArray = [];
 
         try {
+
             if (!empty($objRequest)) {
                 foreach ($objRequest as $key => $value) {
                     if (class_exists($key)) {
@@ -77,23 +76,14 @@ class XMLConverter implements SDKConverter
             $serializer = new XML_Serializer($this->options);
             $result = $serializer->serialize($objRequest);
 
-            $doc = new DOMDocument;
-            $doc->preserveWhiteSpace = false;
-            $doc->loadxml(utf8_encode($result));
-            $xpath = new DOMXPath($doc);
-            foreach ($xpath->query('//*[not(normalize-space())]') as $node) {
-                $node->parentNode->removeChild($node);
-            }
-            $doc->formatOutput = true;
-            $reqXML = $doc->savexml();
+            // TODO: Serialize without this replace
 
-            return $reqXML;
+            return str_replace('Dnetix\MasterPass\Model\\', '', $result);
 
         } catch (Exception $e) {
             throw new SDKConversionException($e, __class__);
         }
 
-        return $result;
     }
 
     /**
@@ -101,13 +91,16 @@ class XMLConverter implements SDKConverter
      * @param $xmlResponse | xml response body
      * @param $responseType | the response type to convert received response to specific response type.
      * @return $result_unserialize | De-serialized response, xml converted to object
-     * @throws SDKConversionException |    If an exception occurred during response conversion.
+     * @throws SDKConversionException
      */
     public function responseBodyConverter($xmlResponse, $responseType)
     {
         $tagMapArray = [];
+
+        $class = '\Dnetix\MasterPass\Model\\' . $responseType;
+
         try {
-            foreach ($responseType::$attributeMap as $key => $val) {
+            foreach ($class::$attributeMap as $key => $val) {
                 if (class_exists($key)) {
                     if (!empty($key::$attributeMap)) {
                         $tagMapArray = array_merge($tagMapArray, $key::$attributeMap);
@@ -118,15 +111,12 @@ class XMLConverter implements SDKConverter
             $this->options_unserialize['XML_UNSERIALIZER_OPTION_DEFAULT_CLASS'] = $responseType;
             $this->options_unserialize['XML_UNSERIALIZER_OPTION_TAG_MAP'] = $tagMapArray;
 
-            $unserializer = new XML_Unserializer($this->options_unserialize);
-            $result_unserialize = $unserializer->unserialize($xmlResponse, false, [XML_UNSERIALIZER_OPTION_TAG_MAP => $tagMapArray]);
+            $unserializer = new \XML_Unserializer($this->options_unserialize);
+            return $unserializer->unserialize($xmlResponse, false, [XML_UNSERIALIZER_OPTION_TAG_MAP => $tagMapArray]);
         } catch (Exception $e) {
             throw new SDKConversionException($e, __class__);
         }
-        return $result_unserialize;
+
     }
 
-
 }
-
-?>

@@ -11,9 +11,12 @@ use Dnetix\MasterPass\Interceptor\MasterCardAPITrackerInterceptor;
 use Dnetix\MasterPass\Interceptor\MasterCardSDKLoggingInterceptor;
 use Dnetix\MasterPass\Interceptor\MasterCardSignatureInterceptor;
 use Dnetix\MasterPass\MasterCardApiConfig;
+use Dnetix\MasterPass\Model\RequestTokenResponse;
 use Dnetix\MasterPass\Model\SDKErrorResponse;
+use Dnetix\MasterPass\Model\ShoppingCartResponse;
 use Exception;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 
 /**
  * ApiClient is the base class to invoke the API.
@@ -54,6 +57,7 @@ class ApiClient
      * @param ServiceRequest $serviceRequest
      * @param $method
      * @param $responseType
+     * @return
      */
     public function call($resourcePath, $serviceRequest, $method, $responseType)
     {
@@ -116,7 +120,7 @@ class ApiClient
             MasterCardSDKLoggingInterceptor::responseLog($url, $res);
 
             $converter = SDKConverterFactory::getConverter(strtoupper($contentTypeVal [1]));
-            $result_unserialize = $converter->responseBodyConverter($res->getBody(), $responseType);
+            return $converter->responseBodyConverter($res->getBody(), $responseType);
 
         } catch (SDKConversionException $e) {
             $this->logger->error($e->getConverterName());
@@ -127,20 +131,23 @@ class ApiClient
                 throw new SDKBaseException(ApiClient::ERR_HANDLER_NOT_FOUND);
             }
         } catch (Exception $e) {
-            $response = $e->getResponse();
-            $statusCode = $response->getStatusCode();
-            $this->logger->info(ApiClient::ERR_RESPONSE_CODE . $statusCode);
+
+            if($e instanceof ClientException) {
+                $response = $e->getResponse();
+                $message = $e->getResponse()->getBody()->getContents();
+                $statusCode = $response->getStatusCode();
+            } else {
+                $response = $e->getMessage();
+                $message = $e->getMessage();
+                $statusCode = 400;
+            }
+
+            $this->logger->info(ApiClient::ERR_RESPONSE_CODE . ' ' . $message . ' ' . $statusCode);
 
             MasterCardSDKLoggingInterceptor::responseLog($url, $response);
 
-            $sdkErrorResponse = new SDKErrorResponse($response, $statusCode);
-            if ($this->sdkErrorHandler != null) {
-                $this->sdkErrorHandler->handleError($sdkErrorResponse);
-            } else {
-                throw new SDKBaseException(ApiClient::ERR_HANDLER_NOT_FOUND);
-            }
+            return null;
         }
-        return $result_unserialize;
     }
 
     /**

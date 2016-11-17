@@ -32,7 +32,7 @@ class Logger
 
     public function output($message)
     {
-//        print "\n" . time() . " - " . $message . "\n";
+        print "\n" . time() . " - " . $message . "\n";
     }
 
     public static function getLogger($logFile = null)

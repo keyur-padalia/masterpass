@@ -1,10 +1,11 @@
 <?php
 
 namespace Dnetix\MasterPass\Converters;
+
 use Dnetix\MasterPass\Exception\SDKConversionException;
 use Dnetix\MasterPass\Interfaces\SDKConverter;
+use Dnetix\MasterPass\Model\RequestTokenResponse;
 use Exception;
-use ReflectionClass;
 
 /**
  * EncodedURLConverter - To convert response from request token api & parse it & return
@@ -18,33 +19,19 @@ class EncodedURLConverter implements SDKConverter
 
     /**
      * Generic method for access & request token response object set parameters
-     **/
+     * @param array $responseString
+     * @param $responseType
+     * @return mixed
+     */
     private function GetTokenResponse($responseString, $responseType)
     {
-
         //Instantiate the object
-        $resObj = new $responseType();
+        $class = '\Dnetix\MasterPass\Model\\' . $responseType;
+        $resObj = new $class;
 
-        //Instantiate the reflection object
-        $reflector = new ReflectionClass($responseType);
+        if ($resObj instanceof RequestTokenResponse)
+            $resObj->load($responseString);
 
-        //Now get all the properties from class $responseType in to $properties array
-        $properties = $reflector->getProperties();
-
-        //Now go through the $properties array and populate each property
-        foreach ($properties as $property) {
-            foreach ($responseString as $key => $value) {
-                $param = $property->name;
-
-                if ($this->to_camel_case($key) == $param) {
-                    //Populating properties with response variables
-                    $resObj->$param = $value;
-                }
-            }
-
-        }
-
-        // returning class object with response variables set to class params
         return $resObj;
     }
 
@@ -53,7 +40,6 @@ class EncodedURLConverter implements SDKConverter
      */
     public function responseBodyConverter($responseString, $responseType)
     {
-
         $token = [];
         foreach (explode("&", $responseString) as $p) {
             @list($name, $value) = explode("=", $p, 2);
