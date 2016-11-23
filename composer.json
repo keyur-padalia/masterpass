@@ -1,8 +1,11 @@
 {
   "name": "dnetix/masterpass",
-  "description": "Masterpass SDK",
+  "version": "0.1.0",
+  "description": "PHP Masterpass Merchant Checkout Service SDK for use with PHP Core SDK on MasterCard Developer Zone ",
   "type": "library",
+  "license": "MIT",
   "require": {
+    "php": ">=5.4",
     "guzzlehttp/guzzle": "^6.2"
   },
   "authors": [
