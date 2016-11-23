@@ -1,11 +1,14 @@
 <?php
 
 namespace Dnetix\MasterPass\Exception;
+
+
 use Dnetix\MasterPass\Converters\SDKConverterFactory;
 use Dnetix\MasterPass\Helper\Logger;
 use Dnetix\MasterPass\Interfaces\SDKErrorHandler;
 use Dnetix\MasterPass\Model\Error;
 use Dnetix\MasterPass\Model\Errors;
+use Dnetix\MasterPass\Model\SDKErrorResponse;
 
 
 /**
@@ -40,13 +43,13 @@ class MasterpassErrorHandler implements SDKErrorHandler
     }
 
     /**
-     * wrap up exception and throw custom exception
+     * Wrap up exception and throw custom exception
+     * @param SDKErrorResponse $sdkErrorResponse
      */
     public function handleError($sdkErrorResponse)
     {
-        $errors = '';
-        $response = '';
         $responseBody = '';
+        $responseStatusCode = 200;
         $response = $sdkErrorResponse->getResponse();
         if ($response) {
             $responseBody = $response->getBody();
@@ -96,4 +99,5 @@ class MasterpassErrorHandler implements SDKErrorHandler
         $errors->Error = $error;
         return $errors;
     }
+
 }

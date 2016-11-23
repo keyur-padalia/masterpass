@@ -26,6 +26,9 @@ class SDKErrorResponse
         $this->response = $response;
     }
 
+    /**
+     * @return Response
+     */
     public function getResponse()
     {
         return $this->response;

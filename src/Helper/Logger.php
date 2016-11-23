@@ -6,13 +6,12 @@ namespace Dnetix\MasterPass\Helper;
  * Class Logger
  * Implementing this logger just because the library uses one
  */
-class Logger
+class Logger implements LoggerContract
 {
-    protected $logFile;
+    public static $logger;
 
     public function __construct($logFile = null)
     {
-        $this->logFile = $logFile;
     }
 
     public function error($message)
@@ -32,12 +31,21 @@ class Logger
 
     public function output($message)
     {
-//        print "\n" . time() . " - " . $message . "\n";
+        if (getenv('APP_MP_DEBUG'))
+            print "\n" . time() . " - " . $message . "\n";
     }
 
     public static function getLogger($logFile = null)
     {
-        return new self($logFile);
+        if (!self::$logger)
+            self::$logger = new self($logFile);
+
+        return self::$logger;
+    }
+
+    public static function setLogger($logger)
+    {
+        self::$logger = $logger;
     }
 
 }
