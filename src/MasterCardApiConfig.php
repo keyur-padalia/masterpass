@@ -14,17 +14,22 @@ class MasterCardApiConfig
     public static $privateKey;
     public static $sandbox = true;
     public static $additionalProperties = [];
+    /**
+     * @var ApiConfigBuilder
+     */
     public static $sandboxBuilder;
-
     /**
      * @var ApiConfigBuilder
      */
     public static $productionBuilder;
+
     const PRODUCTION = "PRODUCTION";
     const SANDBOX = "SANDBOX";
 
     const SANDBOX_URL = "https://sandbox.api.mastercard.com";
     const PROD_URL = "https://api.mastercard.com";
+
+    const BUTTON_SRC_URL = 'https://www.mastercard.com/mc_us/wallet/img/en/US/mcpp_wllt_btn_chk_147x034px.png';
 
     public static $configs = [];
     public static $builders = [];
@@ -98,8 +103,14 @@ class MasterCardApiConfig
         }
     }
 
+    public static function buttonUrl()
+    {
+        return self::BUTTON_SRC_URL;
+    }
+
     /**
      * Register the apiConfig object.
+     * @param ApiConfig $apiConfig
      */
     public static function registerConfig(ApiConfig $apiConfig)
     {
@@ -109,6 +120,7 @@ class MasterCardApiConfig
 
     /**
      * Returns the ApiConfig object for Sandbox/Production, based on user choice.
+     * @param null $name
      * @return ApiConfig
      */
     public static function getConfig($name = null)
@@ -128,17 +140,23 @@ class MasterCardApiConfig
             }
         }
     }
+
+    public static function init()
+    {
+        self::$productionBuilder = new ApiConfigBuilder();
+        self::$productionBuilder->setEnvName(self::PRODUCTION);
+        self::$productionBuilder->setHostUrl(self::PROD_URL);
+
+        self::$sandboxBuilder = new ApiConfigBuilder();
+        self::$sandboxBuilder->setEnvName(self::SANDBOX);
+        self::$sandboxBuilder->setHostUrl(self::SANDBOX_URL);
+
+        self::$builders = [
+            self::SANDBOX => self::$sandboxBuilder,
+            self::PRODUCTION => self::$productionBuilder,
+        ];
+    }
 }
 
-MasterCardApiConfig::$productionBuilder = new ApiConfigBuilder();
-MasterCardApiConfig::$productionBuilder->setEnvName(MasterCardApiConfig::PRODUCTION);
-MasterCardApiConfig::$productionBuilder->setHostUrl(MasterCardApiConfig::PROD_URL);
+MasterCardApiConfig::init();
 
-MasterCardApiConfig::$sandboxBuilder = new ApiConfigBuilder();
-MasterCardApiConfig::$sandboxBuilder->envName = MasterCardApiConfig::SANDBOX;
-MasterCardApiConfig::$sandboxBuilder->hostUrl = MasterCardApiConfig::SANDBOX_URL;
-
-MasterCardApiConfig::$builders = [
-    MasterCardApiConfig::SANDBOX => MasterCardApiConfig::$sandboxBuilder,
-    MasterCardApiConfig::PRODUCTION => MasterCardApiConfig::$productionBuilder,
-];
