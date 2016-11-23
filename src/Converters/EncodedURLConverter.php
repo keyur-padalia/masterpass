@@ -4,6 +4,7 @@ namespace Dnetix\MasterPass\Converters;
 
 use Dnetix\MasterPass\Exception\SDKConversionException;
 use Dnetix\MasterPass\Interfaces\SDKConverter;
+use Dnetix\MasterPass\Model\AccessTokenResponse;
 use Dnetix\MasterPass\Model\RequestTokenResponse;
 use Exception;
 
@@ -19,18 +20,20 @@ class EncodedURLConverter implements SDKConverter
 
     /**
      * Generic method for access & request token response object set parameters
-     * @param array $responseString
+     * @param array $data
      * @param $responseType
      * @return mixed
      */
-    private function GetTokenResponse($responseString, $responseType)
+    private function GetTokenResponse($data, $responseType)
     {
         //Instantiate the object
         $class = '\Dnetix\MasterPass\Model\\' . $responseType;
         $resObj = new $class;
 
         if ($resObj instanceof RequestTokenResponse)
-            $resObj->load($responseString);
+            $resObj->load($data);
+        if ($resObj instanceof AccessTokenResponse)
+            $resObj->load($data);
 
         return $resObj;
     }

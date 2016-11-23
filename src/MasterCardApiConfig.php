@@ -109,6 +109,7 @@ class MasterCardApiConfig
 
     /**
      * Returns the ApiConfig object for Sandbox/Production, based on user choice.
+     * @return ApiConfig
      */
     public static function getConfig($name = null)
     {

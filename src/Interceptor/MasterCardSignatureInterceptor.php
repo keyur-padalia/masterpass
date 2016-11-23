@@ -1,13 +1,15 @@
 <?php
 
 namespace Dnetix\MasterPass\Interceptor;
+
+use Dnetix\MasterPass\Exception\SDKOauthException;
+use Dnetix\MasterPass\Helper\Logger;
+use Dnetix\MasterPass\Helper\ServiceRequest;
+use Exception;
+
 /**
  * Interceptor to add authorization headers.
- * @package  MasterCardCoreSDK
- * @subpackage  Interceptor
- * @category Class MasterCardSignatureInterceptor
  **/
-
 class MasterCardSignatureInterceptor
 {
 
@@ -61,19 +63,20 @@ class MasterCardSignatureInterceptor
     }
 
     /**
-     * function to send oauth headers to attach it to http requestMethod
-     * @param url
-     * @param method
-     * @param result
-     * @param serviceRequest
-     * @return headers
+     * Function to send oauth headers to attach it to http requestMethod
+     * @param $url
+     * @param $method
+     * @param $result
+     * @param ServiceRequest $serviceRequest
+     * @param $config
+     * @return array
      */
-
     public static function getReqHeaders($url, $method, $result, $serviceRequest, $config)
     {
         $reqHeaders = $serviceRequest->getHeaders();
         $reqContentType = $serviceRequest->getContentType();
         $body = $serviceRequest->getRequestBody();
+
         if (!empty($body)) {
             $params[MasterCardSignatureInterceptor::OAUTH_BODY_HASH] = MasterCardSignatureInterceptor::generateBodyHash($result);
         } else {
@@ -86,7 +89,6 @@ class MasterCardSignatureInterceptor
             }
         }
 
-
         $headers = [
             MasterCardSignatureInterceptor::CONTENT_TYPE => $reqContentType,
             MasterCardSignatureInterceptor::AUTHORIZATION => self::buildAuthHeaderString($params, $url, $method, $result, $config),
@@ -96,12 +98,8 @@ class MasterCardSignatureInterceptor
 
     }
 
-//---------- functions to generate OAuth headers and signature -----------------
-
-    /** Method to generate the body hash
-     * @method Method to generate the body hash
-     * @param $body
-     * @return string
+    /**
+     * Method to generate the body hash
      */
     protected static function generateBodyHash($body)
     {
@@ -109,10 +107,8 @@ class MasterCardSignatureInterceptor
         return base64_encode($sha1Hash);
     }
 
-    /** This method generates and returns a unique nonce value to be used in Wallet API OAuth calls.
-     * @method This method generates and returns a unique nonce value to be used in Wallet API OAuth calls.
-     * @param $length
-     * @return string
+    /**
+     * This method generates and returns a unique nonce value to be used in Wallet API OAuth calls.
      */
     private static function generateNonce($length)
     {
@@ -124,14 +120,8 @@ class MasterCardSignatureInterceptor
         }
     }
 
-    /** Builds a Auth Header used in connection to MasterPass services
-     * @method Builds a Auth Header used in connection to MasterPass services
-     * @param $params
-     * @param $realm
-     * @param $url
-     * @param $requestMethod
-     * @param $body
-     * @return string - Auth header
+    /**
+     * Builds a Auth Header used in connection to MasterPass services
      */
     private static function buildAuthHeaderString($params, $url, $requestMethod, $body, $config)
     {
@@ -162,14 +152,8 @@ class MasterCardSignatureInterceptor
         return $authHeader;
     }
 
-    /** Method to generate base string and generate the signature
-     * @method Method to generate base string and generate the signature
-     * @param $params
-     * @param $url
-     * @param $requestMethod
-     * @param $privateKey
-     * @param $body
-     * @return signature string
+    /**
+     * Method to generate base string and generate the signature
      */
     private static function generateAndSignSignature($params, $url, $requestMethod, $privateKey, $body)
     {
@@ -178,11 +162,8 @@ class MasterCardSignatureInterceptor
         return $signature;
     }
 
-    /** Method to sign string
-     * @method Method to sign string
-     * @param $string
-     * @param $privateKey
-     * @return string
+    /**
+     * Method to sign string
      */
     private static function sign($string, $privateKey)
     {
@@ -191,12 +172,8 @@ class MasterCardSignatureInterceptor
         return base64_encode($signature);
     }
 
-    /** Method to generate the signature base string
-     * @method Method to generate the signature base string
-     * @param $params
-     * @param $url
-     * @param $requestMethod
-     * @return string
+    /**
+     * Method to generate the signature base string
      */
     private static function generateBaseString($params, $url, $requestMethod)
     {
@@ -217,11 +194,8 @@ class MasterCardSignatureInterceptor
         return $baseString . $parameters;
     }
 
-    /** Method to extract the URL parameters and add them to the params array
-     * @method Method to extract the URL parameters and add them to the params array
-     * @param string $urlMap
-     * @param string $params
-     * @return string|multitype:
+    /**
+     * Method to extract the URL parameters and add them to the params array
      */
     static function parseUrlParameters($urlMap, $params)
     {
@@ -237,11 +211,8 @@ class MasterCardSignatureInterceptor
         }
     }
 
-    /** Method to format the URL that is included in the signature base string
-     * @method Method to format the URL that is included in the signature base string
-     * @param string $url
-     * @param string $params
-     * @return string url string
+    /**
+     * Method to format the URL that is included in the signature base string
      */
     static function formatUrl($url, $params)
     {
@@ -253,11 +224,8 @@ class MasterCardSignatureInterceptor
     }
 
 
-    /** URLEncoder that conforms to the RFC3986 spec.
-     * @method URLEncoder that conforms to the RFC3986 spec.
-     * PHP's internal function, rawurlencode, does not conform to RFC3986 for PHP 5.2
-     * @param unknown $string
-     * @return unknown|mixed
+    /**
+     * URLEncoder that conforms to the RFC3986 spec.
      */
     static function RFC3986urlencode($string)
     {
@@ -268,10 +236,8 @@ class MasterCardSignatureInterceptor
         }
     }
 
-    /** Method to create all default parameters used in the base string and auth header
-     * @method Method to create all default parameters used in the base string and auth header
-     * @param config [config object holding data consumerKey, privateKey,..]
-     * @return array
+    /**
+     * Method to create all default parameters used in the base string and auth header
      */
     protected static function OAuthParametersFactory($config)
     {
@@ -289,5 +255,3 @@ class MasterCardSignatureInterceptor
         return $params;
     }
 }
-
-?>

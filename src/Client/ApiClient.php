@@ -1,6 +1,7 @@
 <?php
 
 namespace Dnetix\MasterPass\Client;
+use Dnetix\MasterPass\ApiConfig;
 use Dnetix\MasterPass\Converters\SDKConverterFactory;
 use Dnetix\MasterPass\Exception\SDKBaseException;
 use Dnetix\MasterPass\Exception\SDKConversionException;
@@ -11,9 +12,7 @@ use Dnetix\MasterPass\Interceptor\MasterCardAPITrackerInterceptor;
 use Dnetix\MasterPass\Interceptor\MasterCardSDKLoggingInterceptor;
 use Dnetix\MasterPass\Interceptor\MasterCardSignatureInterceptor;
 use Dnetix\MasterPass\MasterCardApiConfig;
-use Dnetix\MasterPass\Model\RequestTokenResponse;
 use Dnetix\MasterPass\Model\SDKErrorResponse;
-use Dnetix\MasterPass\Model\ShoppingCartResponse;
 use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
@@ -30,7 +29,13 @@ class ApiClient
 
     public $logger;
     public $sdkErrorHandler;
+    /**
+     * @var ApiConfig
+     */
     public $configApi;
+    /**
+     * @var MasterCardAPITrackerInterceptor
+     */
     private $apiTrackrInterObj;
 
     public function __construct($apiConfig = null)
@@ -61,8 +66,6 @@ class ApiClient
      */
     public function call($resourcePath, $serviceRequest, $method, $responseType)
     {
-        $headers = [];
-
         $url = $this->configApi->hostUrl . $resourcePath;
 
         $pathParams = $serviceRequest->getPathParams();
@@ -85,8 +88,6 @@ class ApiClient
         $converter = SDKConverterFactory::getConverter(strtoupper($contentTypeVal[1]));
         $result = $converter->requestBodyConverter($serviceRequest->getRequestBody());
 
-        $reqHeaders = $serviceRequest->getHeaders();
-        $reqContentType = $serviceRequest->getContentType();
         $headers = MasterCardSignatureInterceptor::getReqHeaders($url, $method, $result, $serviceRequest, $this->configApi);
 
         $this->logger->info(MasterCardSignatureInterceptor::AUTH_HEADER_INFO);
@@ -119,7 +120,7 @@ class ApiClient
             // Logging Response
             MasterCardSDKLoggingInterceptor::responseLog($url, $res);
 
-            $converter = SDKConverterFactory::getConverter(strtoupper($contentTypeVal [1]));
+            $converter = SDKConverterFactory::getConverter(strtoupper($contentTypeVal[1]));
             return $converter->responseBodyConverter($res->getBody(), $responseType);
 
         } catch (SDKConversionException $e) {
