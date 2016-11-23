@@ -3,23 +3,6 @@
 namespace Dnetix\MasterPass\Model;
 
 
-    /**
-     * Details
-     *
-     * PHP version 5
-     *
-     * @category Class
-     * @package  masterpass-merchant
-     */
-
-/**
- * Details Class Doc Comment
- *
- * @category    Class
- * @description The error details.
- * @package     masterpass-merchant
- */
-
 class Details
 {
     /**

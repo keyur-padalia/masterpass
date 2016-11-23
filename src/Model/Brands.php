@@ -3,7 +3,7 @@
 namespace Dnetix\MasterPass\Model;
 
 /**
- * Brands : This class contains methods regarding brands information.
+ * This class contains methods regarding brands information.
  */
 class Brands
 {

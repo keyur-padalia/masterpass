@@ -3,15 +3,18 @@
 namespace Dnetix\MasterPass\Model;
 
 
-class Detail
+/**
+ * This class contains methods to get additional address details.
+ */
+class AddressExtensionPoint
 {
     /**
      * Array of attributes where the key is the local name, and the value is the original name
      * @var string[]
      */
     static $attributeMap = [
-        'Name' => 'Name',
-        'Value' => 'Value',
+        'Line4' => 'Line4',
+        'Line5' => 'Line5',
     ];
 
     static function attributeMap()
@@ -24,8 +27,8 @@ class Detail
      * @var string[]
      */
     static $setters = [
-        'name' => 'setName',
-        'value' => 'setValue',
+        'line4' => 'setLine4',
+        'line5' => 'setLine5',
     ];
 
     static function setters()
@@ -38,8 +41,8 @@ class Detail
      * @var string[]
      */
     static $getters = [
-        'name' => 'getName',
-        'value' => 'getValue',
+        'line4' => 'getLine4',
+        'line5' => 'getLine5',
     ];
 
     static function getters()
@@ -49,16 +52,16 @@ class Detail
 
 
     /**
-     * $name the error detail name.
+     * $line4 the address line 4 used to additional address information.
      * @var string
      */
-    public $Name;
+    public $Line4;
 
     /**
-     * $value the error detail name.
+     * $line5 the address line 5 used to remaining address information.
      * @var string
      */
-    public $Value;
+    public $Line5;
 
 
     /**
@@ -69,53 +72,52 @@ class Detail
     {
 
         if ($data != null) {
-            $this->Name = $data["Name"];
-            $this->Value = $data["Value"];
+            $this->Line4 = isset($data["Line4"]) ? $data["Line4"] : "";
+            $this->Line5 = isset($data["Line5"]) ? $data["Line5"] : "";
         }
     }
 
     /**
-     * Gets name
+     * Gets line4
      * @return string
      */
-    public function getName()
+    public function getLine4()
     {
-        return $this->Name;
+        return $this->Line4;
     }
 
     /**
-     * Sets name
-     * @param string $name the error detail name.
+     * Sets line4
+     * @param string $line4 the address line 4 used to additional address information.
      * @return $this
      */
-    public function setName($name)
+    public function setLine4($line4)
     {
 
-        $this->Name = $name;
+        $this->Line4 = $line4;
         return $this;
     }
 
     /**
-     * Gets value
+     * Gets line5
      * @return string
      */
-    public function getValue()
+    public function getLine5()
     {
-        return $this->Value;
+        return $this->Line5;
     }
 
     /**
-     * Sets value
-     * @param string $value the error detail name.
+     * Sets line5
+     * @param string $line5 the address line 5 used to remaining address information.
      * @return $this
      */
-    public function setValue($value)
+    public function setLine5($line5)
     {
 
-        $this->Value = $value;
+        $this->Line5 = $line5;
         return $this;
     }
-
 
 }
 
