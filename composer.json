@@ -16,7 +16,7 @@
   ],
   "autoload": {
     "classmap": [
-      "packages/dnetix/masterpass/lib"
+      "lib"
     ],
     "psr-4": {
       "Dnetix\\MasterPass\\": "src/"
