@@ -31,6 +31,9 @@ class MasterCardApiConfig
 
     const BUTTON_SRC_URL = 'https://www.mastercard.com/mc_us/wallet/img/en/US/mcpp_wllt_btn_chk_147x034px.png';
 
+    const SCRIPT_SANDBOX_URL = 'https://sandbox.static.masterpass.com/dyn/js/switch/integration/MasterPass.client.js';
+    const SCRIPT_PRODUCTION_URL = 'https://static.masterpass.com/dyn/js/switch/integration/MasterPass.client.js';
+
     public static $configs = [];
     public static $builders = [];
 
@@ -106,6 +109,14 @@ class MasterCardApiConfig
     public static function buttonUrl()
     {
         return self::BUTTON_SRC_URL;
+    }
+
+    public static function scriptUrl()
+    {
+        if (self::isSandBox())
+            return self::SCRIPT_SANDBOX_URL;
+
+        return self::SCRIPT_PRODUCTION_URL;
     }
 
     /**
