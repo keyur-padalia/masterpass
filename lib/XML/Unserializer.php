@@ -54,7 +54,7 @@ require_once 'PEAR.php';
 /**
  * uses XML_Parser to unserialize document
  */
-require_once 'XML/Parser.php';
+require_once __DIR__ . '/Util.php';
 
 /**
  * option: Convert nested tags to array or object
