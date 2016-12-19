@@ -32,7 +32,7 @@ class Logger implements LoggerContract
     public function output($message)
     {
         if (getenv('APP_MP_DEBUG'))
-            print "\n" . time() . " - " . $message . "\n";
+            print "\n[" . date('c') . "] " . $message . "\n";
     }
 
     public static function getLogger($logFile = null)

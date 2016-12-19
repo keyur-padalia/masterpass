@@ -47,13 +47,11 @@ class MerchantTransactions
         return self::$getters;
     }
 
-
     /**
      * $merchant_transactions the merchant transaction details.
      * @var MerchantTransaction[]
      */
-    public $MerchantTransactions;
-
+    public $MerchantTransactions = [];
 
     /**
      * Constructor
@@ -62,8 +60,24 @@ class MerchantTransactions
     public function __construct(array $data = null)
     {
         if ($data != null) {
-            $this->MerchantTransactions = isset($data["MerchantTransactions"]) ? $data["MerchantTransactions"] : "";
+            $transactions = isset($data["MerchantTransactions"]) ? $data["MerchantTransactions"] : null;
+
+            if (is_array($transactions)) {
+                foreach ($transactions as $transaction) {
+                    $this->MerchantTransactions[] = $this->parseMerchantTransaction($transaction);
+                }
+            } else {
+                $this->MerchantTransactions[] = $this->parseMerchantTransaction($transactions);
+            }
         }
+    }
+
+    public function parseMerchantTransaction($data)
+    {
+        if (!($data instanceof MerchantTransaction)) {
+            $data = new MerchantTransaction((array) $data);
+        }
+        return $data;
     }
 
     /**
