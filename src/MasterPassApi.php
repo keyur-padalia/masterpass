@@ -6,12 +6,14 @@ use Dnetix\MasterPass\Model\AccessTokenResponse;
 use Dnetix\MasterPass\Model\Checkout;
 use Dnetix\MasterPass\Model\MerchantInitializationRequest;
 use Dnetix\MasterPass\Model\MerchantInitializationResponse;
+use Dnetix\MasterPass\Model\MerchantTransactions;
 use Dnetix\MasterPass\Model\RequestTokenResponse;
 use Dnetix\MasterPass\Model\ShoppingCartRequest;
 use Dnetix\MasterPass\Model\ShoppingCartResponse;
 use Dnetix\MasterPass\Services\AccessTokenApi;
 use Dnetix\MasterPass\Services\CheckoutApi;
 use Dnetix\MasterPass\Services\MerchantInitializationApi;
+use Dnetix\MasterPass\Services\PostbackApi;
 use Dnetix\MasterPass\Services\RequestTokenApi;
 use Dnetix\MasterPass\Services\ShoppingCartApi;
 
@@ -55,6 +57,16 @@ class MasterPassApi
     public function accessToken($requestToken, $verifierToken)
     {
         return AccessTokenApi::create($requestToken, $verifierToken);
+    }
+
+    /**
+     * Reports the state of the transaction used with MasterPass
+     * @param MerchantTransactions $merchantTransactions
+     * @return MerchantTransactions
+     */
+    public function notifyTransaction(MerchantTransactions $merchantTransactions)
+    {
+        return PostbackApi::create($merchantTransactions);
     }
 
     /**
