@@ -77,10 +77,9 @@ class MasterCardSignatureInterceptor
         $reqContentType = $serviceRequest->getContentType();
         $body = $serviceRequest->getRequestBody();
 
+        $params = array();
         if (!empty($body)) {
             $params[MasterCardSignatureInterceptor::OAUTH_BODY_HASH] = MasterCardSignatureInterceptor::generateBodyHash($result);
-        } else {
-            $params = '';
         }
 
         if (!empty($reqHeaders)) {

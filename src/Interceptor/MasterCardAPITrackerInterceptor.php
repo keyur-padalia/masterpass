@@ -55,7 +55,7 @@ class MasterCardAPITrackerInterceptor
 
     public function intercept()
     {
-        $headers = '';
+        $headers = array();
         $trackingHeadrValue = '';
         $apiTrackerHeader = '';
         $cliT = $this->apiTrackerService;
