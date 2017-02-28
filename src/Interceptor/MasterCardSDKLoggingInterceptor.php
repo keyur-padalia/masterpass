@@ -11,12 +11,12 @@ use GuzzleHttp\Psr7\Response;
 class MasterCardSDKLoggingInterceptor
 {
 
-    const REQUEST_HEADERS = "Request Headers : ";
-    const RESPONSE_STATUS = "Response Status : ";
+    const REQUEST_HEADERS = "Request Headers: ";
+    const RESPONSE_STATUS = "Response Status: ";
     const REQUEST_INFO = "Request Information  ";
     const RESPONSE_INFO = "Response Information  ";
-    const RESPONSE_REASON = "Response : ";
-    const RESPONSE_BODY = "Response Body : ";
+    const RESPONSE_REASON = "Response: ";
+    const RESPONSE_BODY = "Response Body: ";
     const XML = "XML";
 
     /**
