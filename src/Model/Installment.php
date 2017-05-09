@@ -214,6 +214,5 @@ class Installment
         return $this;
     }
 
-
 }
 

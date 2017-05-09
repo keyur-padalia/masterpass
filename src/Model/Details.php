@@ -47,7 +47,7 @@ class Details
 
     /**
      * $detail the error detail.
-     * @var \mastercard_masterpass_merchant\model\Detail[]
+     * @var Detail[]
      */
     public $Detail;
 
@@ -66,7 +66,7 @@ class Details
 
     /**
      * Gets detail
-     * @return \mastercard_masterpass_merchant\model\Detail[]
+     * @return Detail[]
      */
     public function getDetail()
     {
@@ -75,16 +75,14 @@ class Details
 
     /**
      * Sets detail
-     * @param \mastercard_masterpass_merchant\model\Detail[] $detail the error detail.
+     * @param Detail[] $detail the error detail.
      * @return $this
      */
     public function setDetail($detail)
     {
-
         $this->Detail = $detail;
         return $this;
     }
-
 
 }
 

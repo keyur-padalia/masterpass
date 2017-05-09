@@ -302,6 +302,5 @@ class Card extends BaseCard
         return $this;
     }
 
-
 }
 

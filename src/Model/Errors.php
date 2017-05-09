@@ -3,23 +3,6 @@
 namespace Dnetix\MasterPass\Model;
 
 
-    /**
-     * Errors
-     *
-     * PHP version 5
-     *
-     * @category Class
-     * @package  masterpass-merchant
-     */
-
-/**
- * Errors Class Doc Comment
- *
- * @category    Class
- * @description This class contains methods require for error handling.
- * @package     masterpass-merchant
- */
-
 class Errors
 {
     /**
@@ -64,7 +47,7 @@ class Errors
 
     /**
      * $error
-     * @var \mastercard_masterpass_merchant\model\Error[]
+     * @var Error[]
      */
     public $Error;
 
@@ -83,7 +66,7 @@ class Errors
 
     /**
      * Gets error
-     * @return \mastercard_masterpass_merchant\model\Error[]
+     * @return Error[]
      */
     public function getError()
     {
@@ -92,16 +75,14 @@ class Errors
 
     /**
      * Sets error
-     * @param \mastercard_masterpass_merchant\model\Error[] $error
+     * @param Error[] $error
      * @return $this
      */
     public function setError($error)
     {
-
         $this->Error = $error;
         return $this;
     }
-
 
 }
 

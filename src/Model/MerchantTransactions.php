@@ -96,7 +96,6 @@ class MerchantTransactions
      */
     public function setMerchantTransactions($merchant_transactions)
     {
-
         $this->MerchantTransactions = $merchant_transactions;
         return $this;
     }

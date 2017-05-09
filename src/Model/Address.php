@@ -305,6 +305,5 @@ class Address
         return $this;
     }
 
-
 }
 

@@ -30,5 +30,4 @@ class SDKConversionException extends SDKBaseException
         return $this->converterName;
     }
 
-
 }

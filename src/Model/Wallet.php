@@ -70,7 +70,6 @@ class Wallet
      */
     public function __construct(array $data = null)
     {
-
         if ($data != null) {
             $this->CardVerificationStatus = isset($data["CardVerificationStatus"]) ? $data["CardVerificationStatus"] : "";
             $this->ExtensionPoint = isset($data["ExtensionPoint"]) ? $data["ExtensionPoint"] : "";
@@ -93,7 +92,6 @@ class Wallet
      */
     public function setCardVerificationStatus($card_verification_status)
     {
-
         $this->CardVerificationStatus = $card_verification_status;
         return $this;
     }
@@ -114,7 +112,6 @@ class Wallet
      */
     public function setExtensionPoint($extension_point)
     {
-
         $this->ExtensionPoint = $extension_point;
         return $this;
     }

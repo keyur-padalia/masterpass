@@ -330,7 +330,6 @@ class CheckoutExtension
      */
     public function setExtensionPoint($extension_point)
     {
-
         $this->ExtensionPoint = $extension_point;
         return $this;
     }

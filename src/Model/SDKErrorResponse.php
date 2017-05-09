@@ -5,8 +5,6 @@ use GuzzleHttp\Psr7\Response;
 
 /**
  * This class used to build custom error response object.
- * @package  MasterCardCoreSDK
- * @subpackage  model
  */
 class SDKErrorResponse
 {

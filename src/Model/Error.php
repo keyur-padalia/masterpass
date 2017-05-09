@@ -3,23 +3,9 @@
 namespace Dnetix\MasterPass\Model;
 
 
-    /**
-     * Error
-     *
-     * PHP version 5
-     *
-     * @category Class
-     * @package  masterpass-merchant
-     */
-
 /**
  * Error Class Doc Comment
- *
- * @category    Class
- * @description This class contains methods require for error handling.
- * @package     masterpass-merchant
  */
-
 class Error
 {
     /**
@@ -103,13 +89,13 @@ class Error
 
     /**
      * $details the error details.
-     * @var \mastercard_masterpass_merchant\model\Details
+     * @var Details
      */
     public $Details;
 
     /**
      * $extension_point the ExtensionPoint for future enhancement.
-     * @var \mastercard_masterpass_merchant\model\ExtensionPoint
+     * @var ExtensionPoint
      */
     public $ExtensionPoint;
 
@@ -120,14 +106,13 @@ class Error
      */
     public function __construct(array $data = null)
     {
-
         if ($data != null) {
             $this->Description = $data["Description"];
             $this->ReasonCode = $data["ReasonCode"];
             $this->Recoverable = $data["Recoverable"];
             $this->Source = $data["Source"];
             $this->Details = $data["Details"];
-            $this->ExtensionPoint = $data["ExtensionPoint"];
+            $this->ExtensionPoint = isset($data["ExtensionPoint"]) ? $data['ExtensionPoint'] : null;
         }
     }
 
@@ -217,7 +202,7 @@ class Error
 
     /**
      * Gets details
-     * @return \mastercard_masterpass_merchant\model\Details
+     * @return Details
      */
     public function getDetails()
     {
@@ -226,19 +211,18 @@ class Error
 
     /**
      * Sets details
-     * @param \mastercard_masterpass_merchant\model\Details $details the error details.
+     * @param Details $details the error details.
      * @return $this
      */
     public function setDetails($details)
     {
-
         $this->Details = $details;
         return $this;
     }
 
     /**
      * Gets extension_point
-     * @return \mastercard_masterpass_merchant\model\ExtensionPoint
+     * @return ExtensionPoint
      */
     public function getExtensionPoint()
     {
@@ -247,16 +231,14 @@ class Error
 
     /**
      * Sets extension_point
-     * @param \mastercard_masterpass_merchant\model\ExtensionPoint $extension_point the ExtensionPoint for future enhancement.
+     * @param ExtensionPoint $extension_point the ExtensionPoint for future enhancement.
      * @return $this
      */
     public function setExtensionPoint($extension_point)
     {
-
         $this->ExtensionPoint = $extension_point;
         return $this;
     }
-
 
 }
 

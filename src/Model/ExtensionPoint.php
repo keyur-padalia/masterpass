@@ -4,10 +4,6 @@ namespace Dnetix\MasterPass\Model;
 
 /**
  * ExtensionPoint Class Doc Comment
- *
- * @category    Class
- * @description This class contains methods require to set additional details.
- * @package     masterpass-merchant
  */
 class ExtensionPoint
 {
@@ -62,7 +58,6 @@ class ExtensionPoint
      */
     public function __construct(array $data = null)
     {
-
         if ($data != null) {
             $this->any = $data["any"];
         }
@@ -84,7 +79,6 @@ class ExtensionPoint
      */
     public function setAny($any)
     {
-
         $this->any = $any;
         return $this;
     }

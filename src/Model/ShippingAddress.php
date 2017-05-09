@@ -359,7 +359,6 @@ class ShippingAddress extends Address
      */
     public function setCity($city)
     {
-
         $this->City = $city;
         return $this;
     }

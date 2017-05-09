@@ -241,7 +241,6 @@ class MasterCardSignatureInterceptor
     protected static function OAuthParametersFactory($config)
     {
         $nonce = self::generateNonce(16);
-        //$configApi = MasterCardApiConfig::$config;
         $time = time();
         $params = [
             MasterCardSignatureInterceptor::OAUTH_CONSUMER_KEY => $config->consumerKey,
