@@ -17,6 +17,11 @@
       "Dnetix\\MasterPass\\": "src/"
     }
   },
+  "autoload-dev": {
+    "classmap": [
+      "tests/"
+    ]
+  },
   "require": {
     "php": ">=5.4",
     "guzzlehttp/guzzle": "^6.2"
