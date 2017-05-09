@@ -3,10 +3,6 @@
   "description": "PHP Masterpass Merchant Checkout Service SDK for use with PHP Core SDK on MasterCard Developer Zone ",
   "type": "library",
   "license": "MIT",
-  "require": {
-    "php": ">=5.4",
-    "guzzlehttp/guzzle": "^6.2"
-  },
   "authors": [
     {
       "name": "Diego Calle",
@@ -20,5 +16,12 @@
     "psr-4": {
       "Dnetix\\MasterPass\\": "src/"
     }
+  },
+  "require": {
+    "php": ">=5.4",
+    "guzzlehttp/guzzle": "^6.2"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^5.4"
   }
 }
