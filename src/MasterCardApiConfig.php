@@ -29,7 +29,7 @@ class MasterCardApiConfig
     const SANDBOX_URL = "https://sandbox.api.mastercard.com";
     const PROD_URL = "https://api.mastercard.com";
 
-    const BUTTON_SRC_URL = 'https://www.mastercard.com/mc_us/wallet/img/en/US/mcpp_wllt_btn_chk_147x034px.png';
+    const BUTTON_SRC_URL = 'https://static.masterpass.com/dyn/img/btn/global/mp_chk_btn_290x068px.svg';
 
     const SCRIPT_SANDBOX_URL = 'https://sandbox.static.masterpass.com/dyn/js/switch/integration/MasterPass.client.js';
     const SCRIPT_PRODUCTION_URL = 'https://static.masterpass.com/dyn/js/switch/integration/MasterPass.client.js';
