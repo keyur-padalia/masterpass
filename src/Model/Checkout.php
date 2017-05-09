@@ -188,7 +188,6 @@ class Checkout
      */
     public function setTransactionId($transaction_id)
     {
-
         $this->TransactionId = $transaction_id;
         return $this;
     }
@@ -199,6 +198,9 @@ class Checkout
      */
     public function getContact()
     {
+        if (!($this->Contact instanceof Contact)) {
+            $this->Contact = new Contact($this->Contact);
+        }
         return $this->Contact;
     }
 
@@ -209,7 +211,6 @@ class Checkout
      */
     public function setContact($contact)
     {
-
         $this->Contact = $contact;
         return $this;
     }
@@ -338,6 +339,25 @@ class Checkout
 
         $this->ExtensionPoint = $extension_point;
         return $this;
+    }
+
+    /**
+     * Construct an array information of Person
+     */
+    public function getPayer()
+    {
+        return [
+            'name' => $this->getContact()->getFirstName(),
+            'surname' => $this->getContact()->getLastName(),
+            'email' => $this->getContact()->getEmailAddress(),
+            'mobile' => $this->getContact()->getPhoneNumber(),
+            'address' => [
+                'country' => $this->getCard()->getBillingAddress()->getCountry(),
+                'city' => $this->getCard()->getBillingAddress()->getCity(),
+                'street' => $this->getCard()->getBillingAddress()->getLine1(),
+                'postalCode' => $this->getCard()->getBillingAddress()->getPostalCode(),
+            ],
+        ];
     }
 
 }

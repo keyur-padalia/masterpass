@@ -14,6 +14,22 @@ class CheckoutParsingTest extends BaseTestCase
         $this->assertEquals('01', $checkout->getCard()->expirationMonth());
         $this->assertEquals('20', $checkout->getCard()->expirationYear());
         $this->assertEquals('01/20', $checkout->getCard()->expiration());
+
+        $this->assertInstanceOf(\Dnetix\MasterPass\Model\Address::class, $checkout->getCard()->getBillingAddress());
+        $this->assertInstanceOf(\Dnetix\MasterPass\Model\Contact::class, $checkout->getContact());
+
+        $this->assertEquals([
+            'name' => 'Diego',
+            'surname' => 'Calle',
+            'email' => 'dnetix@gmail.com',
+            'mobile' => '3006108399',
+            'address' => [
+                'country' => 'US',
+                'city' => 'Chesterfield',
+                'street' => '123 Main Street',
+                'postalCode' => '63017',
+            ],
+        ], $checkout->getPayer());
     }
 
 }

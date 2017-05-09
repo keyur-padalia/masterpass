@@ -122,10 +122,12 @@ class Address
      * Constructor
      * @param mixed[] $data Associated array of property value initalizing the model
      */
-    public function __construct(array $data = null)
+    public function __construct($data = null)
     {
-
         if ($data != null) {
+            if (is_object($data)) {
+                $data = (array)$data;
+            }
             $this->City = isset($data["City"]) ? $data["City"] : "";
             $this->Country = isset($data["Country"]) ? $data["Country"] : "";
             $this->CountrySubdivision = isset($data["CountrySubdivision"]) ? $data["CountrySubdivision"] : "";

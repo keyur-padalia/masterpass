@@ -139,10 +139,12 @@ class Contact
      * Constructor
      * @param mixed[] $data Associated array of property value initalizing the model
      */
-    public function __construct(array $data = null)
+    public function __construct($data = null)
     {
-
         if ($data != null) {
+            if (is_object($data)) {
+                $data = (array)$data;
+            }
             $this->FirstName = isset($data["FirstName"]) ? $data["FirstName"] : "";
             $this->MiddleName = isset($data["MiddleName"]) ? $data["MiddleName"] : "";
             $this->LastName = isset($data["LastName"]) ? $data["LastName"] : "";

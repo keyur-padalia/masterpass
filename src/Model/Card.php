@@ -237,7 +237,6 @@ class Card extends BaseCard
      */
     public function setExtensionPoint($extension_point)
     {
-
         $this->ExtensionPoint = $extension_point;
         return $this;
     }
@@ -248,6 +247,9 @@ class Card extends BaseCard
      */
     public function getBillingAddress()
     {
+        if (!($this->BillingAddress instanceof Address)) {
+            $this->BillingAddress = new Address($this->BillingAddress);
+        }
         return $this->BillingAddress;
     }
 
