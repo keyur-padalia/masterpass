@@ -4,13 +4,18 @@ With this code you will be able to quickly connect with the Masterpass service.
 
 ## Installation
 
-Using composer from your project
+Using composer from your project, because originally uses a PEAR XML library its required to install it
 
 ```
 composer require dnetix/masterpass
+sudo apt-get install php-pear
+sudo pear update-channels
+sudo pear install XML_Parser
 ```
 
 Or If you just want to run the examples contained in this project run "composer install" to load the vendor autoload
+
+
 
 ## Usage
 
