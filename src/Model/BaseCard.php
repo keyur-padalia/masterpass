@@ -103,10 +103,12 @@ class BaseCard
      * Constructor
      * @param mixed[] $data Associated array of property value initalizing the model
      */
-    public function __construct(array $data = null)
+    public function __construct($data = null)
     {
-
         if ($data != null) {
+            if (!is_array($data)){
+                $data = (array)$data;
+            }
             $this->BrandId = isset($data["BrandId"]) ? $data["BrandId"] : "";
             $this->BrandName = isset($data["BrandName"]) ? $data["BrandName"] : "";
             $this->BillingAddress = isset($data["BillingAddress"]) ? $data["BillingAddress"] : "";

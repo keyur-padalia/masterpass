@@ -119,10 +119,13 @@ class Card extends BaseCard
      * Constructor
      * @param mixed[] $data Associated array of property value initalizing the model
      */
-    public function __construct(array $data = null)
+    public function __construct($data = null)
     {
         parent::__construct($data);
         if ($data != null) {
+            if (!is_array($data)){
+                $data = (array)$data;
+            }
             $this->BrandId = isset($data["BrandId"]) ? $data["BrandId"] : "";
             $this->ExpiryMonth = isset($data["ExpiryMonth"]) ? $data["ExpiryMonth"] : "";
             $this->AccountNumber = isset($data["AccountNumber"]) ? $data["AccountNumber"] : "";
@@ -297,9 +300,33 @@ class Card extends BaseCard
      */
     public function setExpiryYear($expiry_year)
     {
-
         $this->ExpiryYear = $expiry_year;
         return $this;
+    }
+
+    public function brandName()
+    {
+        return $this->getBrandName();
+    }
+
+    public function accountNumber()
+    {
+        return $this->getAccountNumber();
+    }
+
+    public function expirationMonth()
+    {
+        return str_pad($this->getExpiryMonth(), 2, '0', STR_PAD_LEFT);
+    }
+
+    public function expirationYear()
+    {
+        return substr($this->getExpiryYear(), -2, 2);
+    }
+
+    public function expiration()
+    {
+        return $this->expirationMonth() . '/' . $this->expirationYear();
     }
 
 }

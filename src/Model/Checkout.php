@@ -132,6 +132,7 @@ class Checkout
     public function __construct(array $data = null)
     {
         if ($data != null) {
+
             if (is_object($data))
                 $data = (array)$data;
 
@@ -153,6 +154,9 @@ class Checkout
      */
     public function getCard()
     {
+        if (!($this->Card instanceof Card)) {
+            $this->Card = new Card($this->Card);
+        }
         return $this->Card;
     }
 
