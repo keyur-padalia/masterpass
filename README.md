@@ -15,8 +15,6 @@ sudo pear install XML_Parser
 
 Or If you just want to run the examples contained in this project run "composer install" to load the vendor autoload
 
-
-
 ## Usage
 
 Begin setting the environment variables, those values can be obtained from the Masterpass merchant portal
@@ -28,6 +26,9 @@ MasterCardApiConfig::setSandBox(true);
 
 $client = \Dnetix\MasterPass\MasterPassApi();
 ```
+`$consumerKey` it's a string copied from the "Project Keys" section of the Mastercard Developers project
+
+`$privateKey` it's a string containing the data of the file provided by Masterpass, starts with "-----BEGIN PRIVATE KEY-----" and ends with "-----END PRIVATE KEY-----" given that it contains line breaks **I strongly recommend that you store it BASE64 encoded then decode it each time you use it**.
 
 That client can be used for all of the services required for the process
 
