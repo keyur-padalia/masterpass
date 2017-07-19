@@ -331,5 +331,15 @@ class Card extends BaseCard
         return $this->expirationMonth() . '/' . $this->expirationYear();
     }
 
+    public function binDigits()
+    {
+        return substr($this->accountNumber(), 0, 6);
+    }
+
+    public function lastFourDigits()
+    {
+        return substr($this->accountNumber(), -4);
+    }
+
 }
 
