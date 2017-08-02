@@ -28,7 +28,8 @@ $client = \Dnetix\MasterPass\MasterPassApi();
 ```
 `$consumerKey` it's a string copied from the "Project Keys" section of the Mastercard Developers project
 
-`$privateKey` it's a string containing the data of the file provided by Masterpass, starts with "-----BEGIN PRIVATE KEY-----" and ends with "-----END PRIVATE KEY-----" given that it contains line breaks **I strongly recommend that you store it BASE64 encoded then decode it each time you use it**.
+`$privateKey` There is a full paragraph explaining this at the end of this README
+
 
 That client can be used for all of the services required for the process
 
@@ -89,3 +90,22 @@ $creditCardNumber = $checkoutData->getCard()->accountNumber();
 $expiration = $checkoutData->getCard()->expiration();
 ```
 Now you can see the user's credit card information and access it and use it wisely.
+
+### Obtaining the private key
+
+When you create a project you receive a p12 file, or, if you lose it, you can renew it, in order to obtain the private key from this file you need to obtain it with php, so with the command line just put yourself in the directory where the key is and follow the commands
+
+```sh
+php -a
+```
+Once in interactive mode
+```php
+$keystore = [];
+trim(openssl_pkcs12_read(file_get_contents(__DIR__ . '/NAME_OF_THE_P12_FILE.p12'), $keystore, 'THE_PASSWORD_OF_THE_P12'));
+echo base64_encode($keyStore['pkey']);
+```
+This will dump a lot of characters, copy all of them and provide them to the privateKey variable decoded
+
+```php
+$privateKey = base64_decode('THE_TOTAL_CHARACTERS_OBTAINED');
+```
