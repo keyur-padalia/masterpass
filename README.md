@@ -102,7 +102,7 @@ Once in interactive mode
 ```php
 $keystore = [];
 trim(openssl_pkcs12_read(file_get_contents(__DIR__ . '/NAME_OF_THE_P12_FILE.p12'), $keystore, 'THE_PASSWORD_OF_THE_P12'));
-echo base64_encode($keyStore['pkey']);
+echo base64_encode($keystore['pkey']);
 ```
 This will dump a lot of characters, copy all of them and provide them to the privateKey variable decoded
 
