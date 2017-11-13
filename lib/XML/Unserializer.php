@@ -49,7 +49,7 @@
 /**
  * uses PEAR error managemt
  */
-require_once 'PEAR.php';
+//require_once 'PEAR.php';
 
 /**
  * uses XML_Parser to unserialize document

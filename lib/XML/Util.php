@@ -914,8 +914,6 @@ class XML_Util
      */
     public static function raiseError($msg, $code)
     {
-        include_once 'PEAR.php';
         return PEAR::raiseError($msg, $code);
     }
 }
-?>
