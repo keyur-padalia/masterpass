@@ -24,6 +24,7 @@
   },
   "require": {
     "php": ">=5.4",
+    "pear/xml_util": "1.4.3",
     "guzzlehttp/guzzle": "^6.2"
   },
   "require-dev": {
