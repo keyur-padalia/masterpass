@@ -2,6 +2,7 @@
 
 namespace Dnetix\MasterPass\Interceptor;
 use Dnetix\MasterPass\Helper\Logger;
+use DOMDocument;
 use GuzzleHttp\Psr7\Response;
 
 /**
