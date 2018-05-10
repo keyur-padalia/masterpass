@@ -37,7 +37,7 @@ $token = $client->requestToken('http://your_callback_url.com');
 $shoppingCartRequest = new ShoppingCartRequest([
     'ShoppingCart' => new ShoppingCart([
         'Subtotal' => 10000,
-        'CurrencyCode' => 'COP,
+        'CurrencyCode' => 'COP',
         'ShoppingCartItem' => [
             new ShoppingCartItem([
                 'ImageURL' => 'https://www.placetopay.com/images/providers/placetopay.full.png',
